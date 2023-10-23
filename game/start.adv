@@ -44,3 +44,14 @@
         Description => You exit the room;
         Move => hallway.adv
 
+[trapdoor]
+    Id = Trapdoor
+    Status = locked
+    Description = A poorly structured trapdoor with an omnious glow below it.
+    [Action.locked.jump]
+        Description => The trapdoor breaks and you fall for what feels like an eternity;
+        Status => open
+        Move => abyss.adv
+    [Action.locked.open]
+        Description => You try to open the trapdoor, but it seems locked.
+

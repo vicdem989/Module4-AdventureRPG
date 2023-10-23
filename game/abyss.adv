@@ -1,0 +1,19 @@
+[location]
+    Id = Abyss of eternity
+    Description = After falling for what feels like an eternity, you land in a vast open space. A space filled with cold *water* reaching you knees.
+
+[Water]
+    Id = water
+    Description = Still.. Clear.. Cold water that seems to go on endlessely
+    Status = still
+    [Action.still.kick]
+    Description => As you kick the water, you see something unsettling in the distance
+    Status => disturbed
+    [Action.disturbed.look]
+    Description => You see the outline of an object.. An object coming closer and closer
+    Description => Soon the object is in front of you, a water spirit
+
+   
+
+
+

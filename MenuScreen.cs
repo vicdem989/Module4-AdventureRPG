@@ -22,9 +22,10 @@ namespace Adventure
         public Action<Type, Object[]> OnExitScreen { get; set; }
         public void Init()
         {
-            startRow = 14; ///TODO: fix, should not be static. 
+            startRow =  SplashScreen.currentRow; ///TODO: fix, should not be static. 
             startColumn = 0;
         }
+        
         public void Input()
         {
             if (Console.KeyAvailable)

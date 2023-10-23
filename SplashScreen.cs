@@ -18,7 +18,7 @@ namespace Adventure
         private string drawing;
         private int artHeight;
         private int steps;
-        private int currentRow;
+        public static int currentRow;
         private string line = "";
         private int animationSegment = 0;
         private bool skipAnimation = false;

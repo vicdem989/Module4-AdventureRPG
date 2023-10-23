@@ -5,6 +5,7 @@ using Adventure.BuildingBlocks;
 using static Utils.Output;
 using static Adventure.AssetsAndSettings;
 using OUTPUTVALUES;
+using System.Reflection;
 
 
 namespace Adventure
@@ -32,7 +33,7 @@ namespace Adventure
         #endregion
 
         string commandBuffer;
-        string command;
+        string command; 
         string currentDescription = "";
         Location currentLocation;
         bool dirty = true;
@@ -49,7 +50,7 @@ namespace Adventure
         }
         public void Input()
         {
-
+            Console.WriteLine(currentDescription.Length.ToString());
             if (!Console.KeyAvailable)
                 return;
 
@@ -184,7 +185,6 @@ namespace Adventure
                 int currentRow = startRow;
                 int currentColumn = startColumn;
                 Console.Clear();
-
                 Write(ANSICodes.Positioning.SetCursorPos(currentRow, currentColumn));
 
                 ///TODO: There is a problem when the description extends over 
