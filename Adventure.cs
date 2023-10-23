@@ -48,129 +48,128 @@ namespace Adventure
         }
         public void Input()
         {
-            ///TODO: Refactor i.e. make this function more readable. 
-            if (Console.KeyAvailable)
-            {
-                ConsoleKeyInfo keyInfo = Console.ReadKey(false);
-                if (keyInfo.Key == ConsoleKey.Enter)
-                {
-                    command = commandBuffer.ToLower();
-                    commandBuffer = String.Empty;
-                }
-                else
-                {
-                    if (keyInfo.Key == ConsoleKey.Backspace)
-                    {
-                        if (commandBuffer.Length >= 1)
-                        {
-                            commandBuffer = commandBuffer.Substring(0, commandBuffer.Length - 1);
-                        }
-                    }
-                    else
-                    {
-                        commandBuffer += keyInfo.KeyChar;
-                    }
 
-                }
-                dirty = true;
+            if (!Console.KeyAvailable)
+                return;
+
+            dirty = true;
+            ConsoleKeyInfo keyInfo = Console.ReadKey(false);
+
+            if (keyInfo.Key == ConsoleKey.Enter)
+            {
+                command = commandBuffer.ToLower();
+                commandBuffer = String.Empty;
             }
+            else if (keyInfo.Key == ConsoleKey.Backspace && commandBuffer.Length >= 1)
+            {
+                commandBuffer = commandBuffer.Substring(0, commandBuffer.Length - 1);
+            }
+            else
+            {
+                commandBuffer += keyInfo.KeyChar;
+            }
+
         }
+
         public void Update()
         {
             ///TODO: refactor this function. i.e. make it more readable. 
+            ///
+            if (command == String.Empty)
+                return;
 
-            if (command != String.Empty)
+            if (basicCommands.ContainsKey(command))
             {
-                if (basicCommands.ContainsKey(command))
+                basicCommands[command](this);
+            }
+            else
+            {
+                string actionDesc = "";
+                string targetDesc = "";
+
+                string[] commandParts = command.Split(" ", StringSplitOptions.TrimEntries);
+
+                foreach (string item in commandParts)
                 {
-                    basicCommands[command](this);
+                    if (currentLocation.keywords.Contains(item) && actionDesc == "")
+                    {
+                        actionDesc = item;
+                    }
+                    else if (currentLocation.Inventory.Keys.Contains<string>(item) && targetDesc == "")
+                    {
+                        targetDesc = item;
+                    }
+
+                    if (actionDesc != "" && targetDesc != "")
+                    {
+                        break; // No longer anny point in staying in this for loop. 
+                    }
+                }
+
+                if (targetDesc == "" && actionDesc == "")
+                {
+                    currentDescription = "That does nothing";//TODO: Remove magick string, make feadback less static?
+
                 }
                 else
                 {
-                    string actionDesc = "";
-                    string targetDesc = "";
+                    Item target = currentLocation.Inventory[targetDesc];
+                    string key = $"{target.Status}.{actionDesc}";
 
-                    string[] commandParts = command.Split(" ", StringSplitOptions.TrimEntries);
-
-                    foreach (string item in commandParts)
+                    if (target.actions.Keys.Contains<string>(key))
                     {
-                        if (currentLocation.keywords.Contains(item) && actionDesc == "")
-                        {
-                            actionDesc = item;
-                        }
-                        else if (currentLocation.Inventory.Keys.Contains<string>(item) && targetDesc == "")
-                        {
-                            targetDesc = item;
-                        }
 
-                        if (actionDesc != "" && targetDesc != "")
+                        foreach (string assertion in target.actions[key])
                         {
-                            break; // No longer anny point in staying in this for loop. 
-                        }
-                    }
-
-                    if (targetDesc != "" && actionDesc != "")
-                    {
-                        Item target = currentLocation.Inventory[targetDesc];
-                        string key = $"{target.Status}.{actionDesc}";
-
-                        if (target.actions.Keys.Contains<string>(key))
-                        {
-
-                            foreach (string assertion in target.actions[key])
+                            string[] parts = assertion.Split(" => ", StringSplitOptions.TrimEntries);
+                            if (parts.Length >= 2)
                             {
-                                string[] parts = assertion.Split(" => ", StringSplitOptions.TrimEntries);
-                                if (parts.Length >= 2)
-                                {
-                                    string assertionKey = parts[0];
-                                    string assertionValue = parts[1];
+                                string assertionKey = parts[0];
+                                string assertionValue = parts[1];
 
-                                    ///TODO: Remove magick key
-                                    if (assertionKey == "Description")
+                                ///TODO: Remove magick key
+                                if (assertionKey == "Description")
+                                {
+                                    currentDescription = assertionValue;
+                                }
+                                else if (assertionKey == "Status")///TODO: Remove magick key
+                                {
+                                    target.Status = assertionValue;
+                                }
+                                else if (assertionKey == "Player") ///TODO: Remove magick string
+                                {
+                                    if (assertionValue == "hp.dec") ///TODO: Remove magic string
                                     {
-                                        currentDescription = assertionValue;
-                                    }
-                                    else if (assertionKey == "Status")///TODO: Remove magick key
-                                    {
-                                        target.Status = assertionValue;
-                                    }
-                                    else if (assertionKey == "Player") ///TODO: Remove magick string
-                                    {
-                                        if (assertionValue == "hp.dec") ///TODO: Remove magic string
-                                        {
-                                            hero.hp--;
-                                        }
-                                    }
-                                    else if (assertionKey == "Move") ///TODO: You know what to do. 
-                                    {
-                                        Adventure.Parser parser = new();
-                                        currentLocation = parser.CreateLocationFromDescription($"game/{assertionValue}");
-                                        currentDescription = $"{currentDescription}\n{currentLocation.Description}";
+                                        hero.hp--;
                                     }
                                 }
+                                else if (assertionKey == "Move") ///TODO: You know what to do. 
+                                {
+                                    Adventure.Parser parser = new();
+                                    currentLocation = parser.CreateLocationFromDescription($"game/{assertionValue}");
+                                    currentDescription = $"{currentDescription}\n{currentLocation.Description}";
+                                }
                             }
-                        }
-                        else
-                        {
-                            currentDescription = "That is not possible";///TODO: Remove magick string, make feadback less static?
                         }
                     }
                     else
                     {
-                        currentDescription = "That does nothing";//TODO: Remove magick string, make feadback less static?
+                        currentDescription = "That is not possible";///TODO: Remove magick string, make feadback less static?
                     }
                 }
 
-                command = String.Empty;
+            }
 
-                // This is not a good solution, rewrite for clearity.
-                if (hero.hp == 0)
-                {
-                    currentDescription += "You died 💀"; //TODO: Remove magick string, les statick feadback?
+            command = String.Empty;
 
-                }
+            // This is not a good solution, rewrite for clearity.
+            if (hero.hp == 0)
+            {
+                currentDescription += "You died 💀"; //TODO: Remove magick string, les statick feadback?
 
             }
+
+
         }
         public void Draw()
         {
