@@ -4,6 +4,7 @@ using static Utils.Constants;
 using Adventure.BuildingBlocks;
 using static Utils.Output;
 using static Adventure.AssetsAndSettings;
+using OUTPUTVALUES;
 
 
 namespace Adventure
@@ -74,7 +75,6 @@ namespace Adventure
         public void Update()
         {
             ///TODO: refactor this function. i.e. make it more readable. 
-            ///
             if (command == String.Empty)
                 return;
 
@@ -84,93 +84,98 @@ namespace Adventure
             }
             else
             {
-                string actionDesc = "";
-                string targetDesc = "";
-
-                string[] commandParts = command.Split(" ", StringSplitOptions.TrimEntries);
-
-                foreach (string item in commandParts)
-                {
-                    if (currentLocation.keywords.Contains(item) && actionDesc == "")
-                    {
-                        actionDesc = item;
-                    }
-                    else if (currentLocation.Inventory.Keys.Contains<string>(item) && targetDesc == "")
-                    {
-                        targetDesc = item;
-                    }
-
-                    if (actionDesc != "" && targetDesc != "")
-                    {
-                        break; // No longer anny point in staying in this for loop. 
-                    }
-                }
-
-                if (targetDesc == "" && actionDesc == "")
-                {
-                    currentDescription = "That does nothing";//TODO: Remove magick string, make feadback less static?
-
-                }
-                else
-                {
-                    Item target = currentLocation.Inventory[targetDesc];
-                    string key = $"{target.Status}.{actionDesc}";
-
-                    if (target.actions.Keys.Contains<string>(key))
-                    {
-
-                        foreach (string assertion in target.actions[key])
-                        {
-                            string[] parts = assertion.Split(" => ", StringSplitOptions.TrimEntries);
-                            if (parts.Length >= 2)
-                            {
-                                string assertionKey = parts[0];
-                                string assertionValue = parts[1];
-
-                                ///TODO: Remove magick key
-                                if (assertionKey == "Description")
-                                {
-                                    currentDescription = assertionValue;
-                                }
-                                else if (assertionKey == "Status")///TODO: Remove magick key
-                                {
-                                    target.Status = assertionValue;
-                                }
-                                else if (assertionKey == "Player") ///TODO: Remove magick string
-                                {
-                                    if (assertionValue == "hp.dec") ///TODO: Remove magic string
-                                    {
-                                        hero.hp--;
-                                    }
-                                }
-                                else if (assertionKey == "Move") ///TODO: You know what to do. 
-                                {
-                                    Adventure.Parser parser = new();
-                                    currentLocation = parser.CreateLocationFromDescription($"game/{assertionValue}");
-                                    currentDescription = $"{currentDescription}\n{currentLocation.Description}";
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        currentDescription = "That is not possible";///TODO: Remove magick string, make feadback less static?
-                    }
-                }
-
-            }
+                SetActionTargetDesc();
+            }   
 
             command = String.Empty;
 
             // This is not a good solution, rewrite for clearity.
             if (hero.hp == 0)
             {
-                currentDescription += "You died 💀"; //TODO: Remove magick string, les statick feadback?
+                currentDescription += OutputValues.ResponseDed(); //TODO: Remove magick string, les statick feadback?
+            }
+        }
 
+        private void SetActionTargetDesc()
+        {
+            string actionDesc = "";
+            string targetDesc = "";
+
+            string[] commandParts = command.Split(" ", StringSplitOptions.TrimEntries);
+
+            foreach (string item in commandParts)
+            {
+                if (currentLocation.keywords.Contains(item) && actionDesc == "")
+                {
+                    actionDesc = item;
+                }
+                else if (currentLocation.Inventory.Keys.Contains<string>(item) && targetDesc == "")
+                {
+                    targetDesc = item;
+                }
+
+                if (actionDesc != "" && targetDesc != "")
+                {
+                    break; // No longer anny point in staying in this for loop. 
+                }
             }
 
-
+            if (targetDesc == "" && actionDesc == "")
+            {
+                currentDescription = OutputValues.ResponseDoesNothing();//TODO: Remove magick string, make feadback less static?
+            }
+            else
+            {
+                SetDescAndTargetStatus(targetDesc, actionDesc);
+            }
         }
+
+        private void SetDescAndTargetStatus(string targetDesc, string actionDesc)
+        {
+            Item target = currentLocation.Inventory[targetDesc];
+            string key = $"{target.Status}.{actionDesc}";
+
+
+            if (!target.actions.Keys.Contains<string>(key))
+            {
+                currentDescription = OutputValues.ResponseDoesNothing();///TODO: Remove magick string, make feadback less static?
+                return;
+            }
+
+            foreach (string assertion in target.actions[key])
+            {
+                string[] parts = assertion.Split(" => ", StringSplitOptions.TrimEntries);
+
+                if (parts.Length < 2)
+                    break;
+
+                string assertionKey = parts[0];
+                string assertionValue = parts[1];
+
+                ///TODO: Remove magick key
+                if (assertionKey == "Description")
+                {
+                    currentDescription = assertionValue;
+                }
+                else if (assertionKey == "Status")///TODO: Remove magick key
+                {
+                    target.Status = assertionValue;
+                }
+                else if (assertionKey == "Player" && assertionValue == "hp.dec") ///TODO: Remove magick string
+                {
+                    hero.hp--;
+                }
+                else if (assertionKey == "Move") ///TODO: You know what to do. 
+                {
+                    Adventure.Parser parser = new();
+                    currentLocation = parser.CreateLocationFromDescription($"game/{assertionValue}");
+                    currentDescription = $"{currentDescription}\n{currentLocation.Description}";
+                }
+
+            }
+        }
+
+
         public void Draw()
         {
             if (dirty)

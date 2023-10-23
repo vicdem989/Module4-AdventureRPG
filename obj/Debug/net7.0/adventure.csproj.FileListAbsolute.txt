@@ -12,3 +12,17 @@ C:\Users\vicde\Documents\GitHub\Module4-AdventureRPG\obj\Debug\net7.0\refint\adv
 C:\Users\vicde\Documents\GitHub\Module4-AdventureRPG\obj\Debug\net7.0\adventure.pdb
 C:\Users\vicde\Documents\GitHub\Module4-AdventureRPG\obj\Debug\net7.0\adventure.genruntimeconfig.cache
 C:\Users\vicde\Documents\GitHub\Module4-AdventureRPG\obj\Debug\net7.0\ref\adventure.dll
+C:\Users\vicde\OneDrive\Desktop\Assignment4_AdventureRPG\Module4-AdventureRPG\bin\Debug\net7.0\adventure.exe
+C:\Users\vicde\OneDrive\Desktop\Assignment4_AdventureRPG\Module4-AdventureRPG\bin\Debug\net7.0\adventure.deps.json
+C:\Users\vicde\OneDrive\Desktop\Assignment4_AdventureRPG\Module4-AdventureRPG\bin\Debug\net7.0\adventure.runtimeconfig.json
+C:\Users\vicde\OneDrive\Desktop\Assignment4_AdventureRPG\Module4-AdventureRPG\bin\Debug\net7.0\adventure.dll
+C:\Users\vicde\OneDrive\Desktop\Assignment4_AdventureRPG\Module4-AdventureRPG\bin\Debug\net7.0\adventure.pdb
+C:\Users\vicde\OneDrive\Desktop\Assignment4_AdventureRPG\Module4-AdventureRPG\obj\Debug\net7.0\adventure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\vicde\OneDrive\Desktop\Assignment4_AdventureRPG\Module4-AdventureRPG\obj\Debug\net7.0\adventure.AssemblyInfoInputs.cache
+C:\Users\vicde\OneDrive\Desktop\Assignment4_AdventureRPG\Module4-AdventureRPG\obj\Debug\net7.0\adventure.AssemblyInfo.cs
+C:\Users\vicde\OneDrive\Desktop\Assignment4_AdventureRPG\Module4-AdventureRPG\obj\Debug\net7.0\adventure.csproj.CoreCompileInputs.cache
+C:\Users\vicde\OneDrive\Desktop\Assignment4_AdventureRPG\Module4-AdventureRPG\obj\Debug\net7.0\adventure.dll
+C:\Users\vicde\OneDrive\Desktop\Assignment4_AdventureRPG\Module4-AdventureRPG\obj\Debug\net7.0\refint\adventure.dll
+C:\Users\vicde\OneDrive\Desktop\Assignment4_AdventureRPG\Module4-AdventureRPG\obj\Debug\net7.0\adventure.pdb
+C:\Users\vicde\OneDrive\Desktop\Assignment4_AdventureRPG\Module4-AdventureRPG\obj\Debug\net7.0\adventure.genruntimeconfig.cache
+C:\Users\vicde\OneDrive\Desktop\Assignment4_AdventureRPG\Module4-AdventureRPG\obj\Debug\net7.0\ref\adventure.dll
