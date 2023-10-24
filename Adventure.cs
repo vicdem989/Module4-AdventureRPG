@@ -179,12 +179,7 @@ namespace Adventure
                 }
                 else if (assertionKey == OutputValues.qualityOfLife.AssertionKeyPlayer && assertionValue == OutputValues.qualityOfLife.AssertionKeyHPDec) ///TODO: Remove magick string
                 {
-                    int damage = 0;
-                    if(assertionKey == "Damage") {
-                        damage = int.Parse(assertionValue);
-                        hero.hp -= damage;
-                        //hero.hp--;
-                    }
+                    hero.hp -= int.Parse(currentLocation.Damage);
                 }
                 else if (assertionKey == OutputValues.qualityOfLife.AssertionKeyMove) ///TODO: You know what to do. 
                 {
@@ -195,7 +190,8 @@ namespace Adventure
 
             }
 
-            if(hero.cold) {
+            if (hero.cold)
+            {
                 Debuff.ColdDebuff(true, 3, 1);
             }
         }

@@ -1,6 +1,7 @@
 [location]
     Id = Abyss of eternity
     Description = After falling for what feels like an eternity, you land in a vast open space. A space filled with cold *water* reaching you knees.
+    Damage = 1
 
 [water]
     Id = Cold Water
