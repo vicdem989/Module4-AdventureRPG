@@ -38,12 +38,12 @@ Before you write any code, you should "sketch" the pseudo code and make a flowch
 
 - **TODOS**: Do all the things that are tagged with `///TODO:` in the code.
 - **Inventory**: Implement an inventory for the player, and the functionality for adding and removing items.
-- **More Locations**: Implement a minimum of two more locations for the player to travel to.
+- **More Locations**: Implement a minimum of two more locations for the player to travel to. **DONE ISH**
 - **Items**: Create at least one artifact that needs to be combined with another artifact to make a change (for instance, a key and lock).
 
 ### Challenge Requirements (Higher Grades)
 
-- **Cheat Codes**: Implement a minimum of two cheat codes (teleport is a good idea).
+- **Cheat Codes**: Implement a minimum of two cheat codes (teleport is a good idea). **DONE**
 - **Duration Effects**: Implement a system that enables recurring effects (example: poison debuff, scared, prone, blurry vision, etc.).
 - **Update Location Description**: When an item (e.g., the key in the start room) is added to the player's inventory, it should not be part of the room description anymore.
 - **Keep State**: When a player comes back to a location (if you allow the player to revisit), the location should have the changes that the player created previously still be there.

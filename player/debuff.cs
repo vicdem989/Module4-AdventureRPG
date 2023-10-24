@@ -14,7 +14,7 @@ namespace DEBUFF
             {
                 for (int i = 0; i < duration; i++)
                 {
-                    //AdvenureGame.hero.hp -= dmg;
+                    AdvenureGame.hero.hp--;
                 }
             }
 

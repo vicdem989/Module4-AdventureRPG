@@ -18,7 +18,8 @@
     Status = close
     [Action.close.attack]
     Description => You attack the raging water element and land a blow. The element answers with a swift counter attack.
-    Player => hp.random(kick)
+    Player => hp.dec
+    Damage => 5
 
 
 

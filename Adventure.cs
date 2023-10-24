@@ -6,6 +6,7 @@ using static Utils.Output;
 using static Adventure.AssetsAndSettings;
 using OUTPUTVALUES;
 using System.Reflection;
+using DEBUFF;
 
 
 namespace Adventure
@@ -178,7 +179,12 @@ namespace Adventure
                 }
                 else if (assertionKey == OutputValues.qualityOfLife.AssertionKeyPlayer && assertionValue == OutputValues.qualityOfLife.AssertionKeyHPDec) ///TODO: Remove magick string
                 {
-                    hero.hp--;
+                    int damage = 0;
+                    if(assertionKey == "Damage") {
+                        damage = int.Parse(assertionValue);
+                        hero.hp -= damage;
+                        //hero.hp--;
+                    }
                 }
                 else if (assertionKey == OutputValues.qualityOfLife.AssertionKeyMove) ///TODO: You know what to do. 
                 {
@@ -187,6 +193,10 @@ namespace Adventure
                     currentDescription = $"{currentDescription}\n{currentLocation.Description}";
                 }
 
+            }
+
+            if(hero.cold) {
+                Debuff.ColdDebuff(true, 3, 1);
             }
         }
 
@@ -210,7 +220,9 @@ namespace Adventure
 
                 PaddingCenter(currentRow, currentColumn);
                 /// TODO: Magic string, fix DONE
-                Write(OutputValues.qualityOfLife.WritingSymbol + $"{commandBuffer}");
+                Write("HP: " + hero.hp + " " + OutputValues.qualityOfLife.WritingSymbol + $"{commandBuffer}");
+
+                PaddingCenter(currentRow, currentColumn);
 
                 /*if(hero.cold == true) {
                     Write("ME COLD");
