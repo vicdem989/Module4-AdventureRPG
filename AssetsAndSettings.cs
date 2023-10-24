@@ -23,8 +23,5 @@ namespace Adventure
 
         public const string GAME_SOURCE = "game/start.adv";
 
-        public const string CHEATCODE_ABYSS = "game/abyss.adv";
-
-
     }
 }

@@ -9,6 +9,7 @@ using System.Reflection;
 using DEBUFF;
 using System.Linq.Expressions;
 using System.Reflection.Metadata.Ecma335;
+using COMMANDS;
 
 
 namespace Adventure
@@ -47,7 +48,6 @@ namespace Adventure
         public void Init()
         {
             command = commandBuffer = String.Empty;
-            //Adventure.Parser parser = new();
             currentLocation = parser.CreateLocationFromDescription(AssetsAndSettings.GAME_SOURCE);
             currentDescription = currentLocation.Description;
             hero = new Player();
@@ -99,10 +99,27 @@ namespace Adventure
             {
                 basicCommands[command](this);
             }
-            else if (command == OutputValues.qualityOfLife.tpAbyss)
+            else if (command.Contains("/"))
             {
-                currentLocation = parser.CreateLocationFromDescription(AssetsAndSettings.CHEATCODE_ABYSS);
-                currentDescription = currentLocation.Description;
+                //Environment.Exit(0);
+                string location = command.ToLower();//Remove(0).ToLower();
+                if (Commands.VerifyLocation(location) != "")
+                {
+                    Commands.GoToLocation(location);
+                    currentDescription = currentLocation.Description;
+                    return;
+                }
+                /*
+                Check if list of commands exists
+                User can input /tp (location)
+                if part[0] == "/tp"
+                    location = part[1].tolower()
+                    moveTo(location) in cheat code class
+                    moveTo(string location) {
+
+                    }
+
+                */
             }
             else
             {

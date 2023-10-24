@@ -14,6 +14,7 @@
     [Action.floor.lick]
         Description => You lick the key; it has the flavors of strawberries and shattered dreams
         Player => poisen.debuff 3
+        Debuff => poison
     [Action.pocket.throw]
         Description => You throw the key away
         Status => floor
