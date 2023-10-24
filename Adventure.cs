@@ -38,12 +38,13 @@ namespace Adventure
         Location currentLocation;
         bool dirty = true;
         public Action<Type, Object[]> OnExitScreen { get; set; }
+        public static Adventure.Parser parser = new();
 
         Player hero;
         public void Init()
         {
             command = commandBuffer = String.Empty;
-            Adventure.Parser parser = new();
+            //Adventure.Parser parser = new();
             currentLocation = parser.CreateLocationFromDescription(AssetsAndSettings.GAME_SOURCE);
             currentDescription = currentLocation.Description;
             hero = new Player();
@@ -77,10 +78,24 @@ namespace Adventure
             ///TODO: refactor this function. i.e. make it more readable. 
             if (command == String.Empty)
                 return;
+            if (command == OutputValues.qualityOfLife.godmode)
+            {
+                //currentLocation = parser.CreateLocationFromDescription(AssetsAndSettings.CHEATCODE_ABYSS);
+                hero.hp += 999;
+                currentDescription = "That did not work, or did it?";
+                command = string.Empty;
+                return;
+            }
+
 
             if (basicCommands.ContainsKey(command))
             {
                 basicCommands[command](this);
+            }
+            else if (command == OutputValues.qualityOfLife.tpAbyss)
+            {
+                currentLocation = parser.CreateLocationFromDescription(AssetsAndSettings.CHEATCODE_ABYSS);
+                currentDescription = currentLocation.Description;
             }
             else
             {
@@ -153,19 +168,19 @@ namespace Adventure
                 string assertionValue = parts[1];
 
                 ///TODO: Remove magick key
-                if (assertionKey == "Description")
+                if (assertionKey == OutputValues.qualityOfLife.AssertionKeyDesc)
                 {
                     currentDescription = assertionValue;
                 }
-                else if (assertionKey == "Status")///TODO: Remove magick key
+                else if (assertionKey == OutputValues.qualityOfLife.AssertionKeyStatus)///TODO: Remove magick key
                 {
                     target.Status = assertionValue;
                 }
-                else if (assertionKey == "Player" && assertionValue == "hp.dec") ///TODO: Remove magick string
+                else if (assertionKey == OutputValues.qualityOfLife.AssertionKeyPlayer && assertionValue == OutputValues.qualityOfLife.AssertionKeyHPDec) ///TODO: Remove magick string
                 {
                     hero.hp--;
                 }
-                else if (assertionKey == "Move") ///TODO: You know what to do. 
+                else if (assertionKey == OutputValues.qualityOfLife.AssertionKeyMove) ///TODO: You know what to do. 
                 {
                     Adventure.Parser parser = new();
                     currentLocation = parser.CreateLocationFromDescription($"game/{assertionValue}");
@@ -186,17 +201,16 @@ namespace Adventure
                 Console.Clear();
                 PaddingCenter(currentRow, currentColumn);
 
-
-                ///TODO: There is a problem when the description extends over 
+                ///TODO: There is a problem when the description extends over  WORKING ON
                 OutputDesc(currentRow, currentColumn);
 
                 PaddingCenter(currentRow, currentColumn);
-                /// TODO: Magic string, fix
-                Write($"{new string('-', MAX_LINE_WIDTH)}", newLine: true);
+                /// TODO: Magic string, fix DONE
+                Write($"{new string(OutputValues.qualityOfLife.AfterDesc, MAX_LINE_WIDTH)}", newLine: true);
 
                 PaddingCenter(currentRow, currentColumn);
-                /// TODO: Magic string, fix
-                Write($"> {commandBuffer}");
+                /// TODO: Magic string, fix DONE
+                Write(OutputValues.qualityOfLife.WritingSymbol + $"{commandBuffer}");
             }
         }
 

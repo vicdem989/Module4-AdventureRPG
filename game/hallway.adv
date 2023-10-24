@@ -1,8 +1,8 @@
 [location]
     Id = Halway of infenet doom
-    Description = You are standing in a hallway, there is a single point of light above you, otherwise it is dark in both directions.\nFrom your left a scratchy, growly sound is comming from a Rabbit
+    Description = You are standing in a hallway, there is a single point of light above you, otherwise it is dark in both directions.\nFrom your left a scratchy, growly sound is comming from a *rabbit*. To the right of you there is something looking like an open *door*.
 
-[Rabbit]
+[rabbit]
     Id = Raging Rabbit
     Hp = 5
     Description = A rabbit that looks not to frendly
@@ -11,5 +11,12 @@
     Description => The rabbit is to war away, you over ballance and fall on your arse.
     Player => hp.random(kick)
 
+[door]
+    Id =  Open Door
+    Description = A door that looks to be already open
+    Status = open
+    [Action.open.go]
+    Description => As you walk through the door, you get a cold sensation throughout your body;
+    Move => coldemptiness.adv
 
 

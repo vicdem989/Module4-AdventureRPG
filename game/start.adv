@@ -1,6 +1,6 @@
 [location]
     Id = start room
-    Description = You are standing in a room there is a *key* on the floor, a *door*, a *window* and some *students*
+    Description = You are standing in a room there is a *key* on the floor, a *door*, a *window*, a *trapdoor* and some *students*
 
 [key]
     Id = Evil Key 

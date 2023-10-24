@@ -1,18 +1,28 @@
 [location]
     Id = Abyss of eternity
-    Description = After falling for what feels like an eternity, you land in a vast open space. A space filled with cold *water* reaching you knees. After falling for what feels like an eternity, you land in a vast open space. A space filled with cold *water* reaching you knees.
+    Description = After falling for what feels like an eternity, you land in a vast open space. A space filled with cold *water* reaching you knees.
 
-[Water]
-    Id = water
+[water]
+    Id = Cold Water
     Description = Still.. Clear.. Cold water that seems to go on endlessely
     Status = still
     [Action.still.kick]
-    Description => As you kick the water, you see something unsettling in the distance
+    Description => You kick the water but you get drenched. After regaining your sight, you see something unsettling in the distance
     Status => disturbed
-    [Action.disturbed.look]
-    Description => You see the outline of an object.. An object coming closer and closer
-    Description => Soon the object is in front of you, a water spirit
+    Cold => true
 
+[element]
+    Id = Water Element
+    Hp = 7
+    Description = A raging water element
+    Status = close
+    [Action.close.attack]
+    Description => You attack the raging water element and land a blow. The element answers with a swift counter attack.
+    Player => hp.random(kick)
+
+
+
+    
    
 
 
