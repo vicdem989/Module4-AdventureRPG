@@ -5,7 +5,7 @@ namespace Adventure
 {
 
 
-    public class Player
+    public class Player 
     {
 
         public int hp { get; set; }
@@ -18,6 +18,7 @@ namespace Adventure
             hp = 3;
             cold = false;
         }
+
     }
 
 

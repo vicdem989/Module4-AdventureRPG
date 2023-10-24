@@ -7,6 +7,8 @@ using static Adventure.AssetsAndSettings;
 using OUTPUTVALUES;
 using System.Reflection;
 using DEBUFF;
+using System.Linq.Expressions;
+using System.Reflection.Metadata.Ecma335;
 
 
 namespace Adventure
@@ -76,12 +78,12 @@ namespace Adventure
 
         public void Update()
         {
+            Debuff.DebuffTick(hero.hp);
             ///TODO: refactor this function. i.e. make it more readable. 
             if (command == String.Empty)
                 return;
             if (command == OutputValues.qualityOfLife.godmode)
             {
-                //currentLocation = parser.CreateLocationFromDescription(AssetsAndSettings.CHEATCODE_ABYSS);
                 hero.hp += 999;
                 currentDescription = "That did not work, or did it?";
                 command = string.Empty;
@@ -148,6 +150,7 @@ namespace Adventure
 
         private void SetDescAndTargetStatus(string targetDesc, string actionDesc)
         {
+
             Item target = currentLocation.Inventory[targetDesc];
             string key = $"{target.Status}.{actionDesc}";
 
@@ -181,6 +184,10 @@ namespace Adventure
                 {
                     hero.hp -= int.Parse(currentLocation.Damage);
                 }
+                else if (assertionKey == "Debuff" && Debuff.CheckDebuff(assertionValue) == true) ///TODO: Remove magick string
+                {
+                    hero.hp += Debuff.ApplyDebuff(assertionValue);
+                }
                 else if (assertionKey == OutputValues.qualityOfLife.AssertionKeyMove) ///TODO: You know what to do. 
                 {
                     Adventure.Parser parser = new();
@@ -189,14 +196,9 @@ namespace Adventure
                 }
 
             }
-
-            if (hero.cold)
-            {
-                Debuff.ColdDebuff(true, 3, 1);
-            }
         }
 
-
+    
         public void Draw()
         {
             if (dirty)
@@ -216,15 +218,7 @@ namespace Adventure
 
                 PaddingCenter(currentRow, currentColumn);
                 /// TODO: Magic string, fix DONE
-                Write("HP: " + hero.hp + " " + OutputValues.qualityOfLife.WritingSymbol + $"{commandBuffer}");
-
-                PaddingCenter(currentRow, currentColumn);
-
-                /*if(hero.cold == true) {
-                    Write("ME COLD");
-                } else {
-                    Write("NOCOLD SADGE");
-                }*/
+                Write("HP:" + AddColor(" " + hero.hp, ANSICodes.Colors.Red, true, false) + " " + OutputValues.qualityOfLife.WritingSymbol + $" {commandBuffer}");
             }
         }
 

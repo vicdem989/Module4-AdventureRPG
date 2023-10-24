@@ -31,6 +31,11 @@ namespace Utils
         {
             return $"{text}{ANSICodes.Reset}";
         }
+
+        public static string AddColor(string text, string color, bool reset = true, bool oneLine = true) {
+            return $"{color}{text}{ANSICodes.Reset}";
+            
+        }
         public static string Write(String text, bool newLine = false)
         {
             /// TODO: There is a line limit, but it is not enforced in this function. It should be. 

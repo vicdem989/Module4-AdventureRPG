@@ -1,7 +1,7 @@
 [location]
     Id = start room
     Description = You are standing in a room there is a *key* on the floor, a *door*, a *window*, a *trapdoor* and some *students*
-
+    Damage = 7
 [key]
     Id = Evil Key 
     Description = A key that is made of a compound so dark it drains the light around it.
@@ -10,6 +10,7 @@
         Description => You pick up the key and put it in your pocket
         Status => pocket
         Player => Inventory.Add
+        Debuff => lmao
     [Action.floor.lick]
         Description => You lick the key; it has the flavors of strawberries and shattered dreams
         Player => poisen.debuff 3
@@ -30,6 +31,8 @@
     [Action.idle.tickle]
         Description => They do not like that
         Status => enraged
+    [Action.enraged.attack]
+        Description => You attacked the students but got overwhelmed!
 
 [door]
     Id = Broken door

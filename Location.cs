@@ -20,6 +20,7 @@ namespace Adventure.BuildingBlocks
             Damage = string.Empty;
             Inventory = new Dictionary<string, Item>();
         }
+        
 
     }
 

@@ -1,7 +1,7 @@
 [location]
     Id = Halway of infenet doom
     Description = You are standing in a hallway, there is a single point of light above you, otherwise it is dark in both directions.\nFrom your left a scratchy, growly sound is comming from a *rabbit*. To the right of you there is something looking like an open *door*.
-
+    Damage = 1
 [rabbit]
     Id = Raging Rabbit
     Hp = 5
