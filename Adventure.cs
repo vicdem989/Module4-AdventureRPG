@@ -33,7 +33,7 @@ namespace Adventure
         #endregion
 
         string commandBuffer;
-        string command; 
+        string command;
         string currentDescription = "";
         Location currentLocation;
         bool dirty = true;
@@ -50,7 +50,6 @@ namespace Adventure
         }
         public void Input()
         {
-            Console.WriteLine(currentDescription.Length.ToString());
             if (!Console.KeyAvailable)
                 return;
 
@@ -86,7 +85,7 @@ namespace Adventure
             else
             {
                 SetActionTargetDesc();
-            }   
+            }
 
             command = String.Empty;
 
@@ -185,25 +184,60 @@ namespace Adventure
                 int currentRow = startRow;
                 int currentColumn = startColumn;
                 Console.Clear();
-                Write(ANSICodes.Positioning.SetCursorPos(currentRow, currentColumn));
+                PaddingCenter(currentRow, currentColumn);
+
 
                 ///TODO: There is a problem when the description extends over 
-                Write(Reset(ColorizeWords(currentDescription, ANSICodes.Colors.Blue, ANSICodes.Colors.Yellow)), newLine: true);
+                OutputDesc(currentRow, currentColumn);
 
-                currentRow = Console.CursorTop + PADDING;
-                Write(ANSICodes.Positioning.SetCursorPos(currentRow, currentColumn));
+                PaddingCenter(currentRow, currentColumn);
                 /// TODO: Magic string, fix
                 Write($"{new string('-', MAX_LINE_WIDTH)}", newLine: true);
 
-                currentRow = Console.CursorTop + PADDING;
-                Write(ANSICodes.Positioning.SetCursorPos(currentRow, currentColumn));
+                PaddingCenter(currentRow, currentColumn);
                 /// TODO: Magic string, fix
                 Write($"> {commandBuffer}");
             }
         }
 
+        private void OutputDesc(int currentRow, int currentColumn)
+        {
+            int spacesCount = 0;
+            int stringLengthMin = 85;
+            int stringLengthMax = 96;
 
+            int maxWordsPerLine = 0;
+            int outputLength = currentDescription.Length;
+            PaddingCenter(currentRow, currentColumn);
+            if (outputLength < stringLengthMax)
+            {
+                PaddingCenter(currentRow, currentColumn);
+                Write(Reset(ColorizeWords(currentDescription, ANSICodes.Colors.Blue, ANSICodes.Colors.Yellow)), newLine: true);
+                return;
+            }
+
+            PaddingCenter(currentRow, currentColumn);
+            char[] outputChar = currentDescription.ToCharArray();
+            string[] output = currentDescription.Split(" ");
+            for (int i = 0; i < output.Length; i++)
+            {
+                spacesCount++;
+                if (spacesCount > maxWordsPerLine && output[i] == " ")
+                {
+                    spacesCount = 0;
+                    PaddingCenter(currentRow, currentColumn);
+                }
+                Write(Reset(ColorizeWords(output[i].ToString() + " ", ANSICodes.Colors.Blue, ANSICodes.Colors.Yellow)), newLine: false);
+            }
+
+
+        }
+
+        private void PaddingCenter(int currentRow, int currentColumn)
+        {
+            currentRow = Console.CursorTop + PADDING;
+            Write(ANSICodes.Positioning.SetCursorPos(currentRow, currentColumn));
+        }
     }
-
-
 }
+
