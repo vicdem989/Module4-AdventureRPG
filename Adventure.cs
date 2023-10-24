@@ -78,10 +78,16 @@ namespace Adventure
 
         public void Update()
         {
-            Debuff.DebuffTick(hero.hp);
+
             ///TODO: refactor this function. i.e. make it more readable. 
             if (command == String.Empty)
                 return;
+
+            if (Debuff.playerDebuff)
+            {
+                hero.hp -= Debuff.DebuffTick();
+            }
+
             if (command == OutputValues.qualityOfLife.godmode)
             {
                 hero.hp += 999;
@@ -89,8 +95,6 @@ namespace Adventure
                 command = string.Empty;
                 return;
             }
-
-
             if (basicCommands.ContainsKey(command))
             {
                 basicCommands[command](this);
@@ -186,7 +190,7 @@ namespace Adventure
                 }
                 else if (assertionKey == "Debuff" && Debuff.CheckDebuff(assertionValue) == true) ///TODO: Remove magick string
                 {
-                    hero.hp += Debuff.ApplyDebuff(assertionValue);
+                    hero.hp -= Debuff.ApplyDebuff(assertionValue);
                 }
                 else if (assertionKey == OutputValues.qualityOfLife.AssertionKeyMove) ///TODO: You know what to do. 
                 {
@@ -198,7 +202,7 @@ namespace Adventure
             }
         }
 
-    
+
         public void Draw()
         {
             if (dirty)
@@ -214,7 +218,16 @@ namespace Adventure
 
                 PaddingCenter(currentRow, currentColumn);
                 /// TODO: Magic string, fix DONE
-                Write($"{new string(OutputValues.qualityOfLife.AfterDesc, MAX_LINE_WIDTH)}", newLine: true);
+
+                PaddingCenter(currentRow, currentColumn);
+                if (Debuff.currentPlayerDebuff != "No debuff... yet...")
+                {
+                    Write("Current Status: " + AddColor(Debuff.currentPlayerDebuff, Debuff.preferredColor, true, false));
+                }
+                else
+                {
+                    Write("Current Status: " + AddColor(Debuff.currentPlayerDebuff, ANSICodes.Colors.White, true, false));
+                }
 
                 PaddingCenter(currentRow, currentColumn);
                 /// TODO: Magic string, fix DONE
@@ -237,6 +250,7 @@ namespace Adventure
                 Write(Reset(ColorizeWords(currentDescription, ANSICodes.Colors.Blue, ANSICodes.Colors.Yellow)), newLine: true);
                 return;
             }
+            Write($"{new string(OutputValues.qualityOfLife.AfterDesc, MAX_LINE_WIDTH)}", newLine: true);
 
             PaddingCenter(currentRow, currentColumn);
             char[] outputChar = currentDescription.ToCharArray();

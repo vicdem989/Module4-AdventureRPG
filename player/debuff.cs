@@ -1,5 +1,8 @@
 
+using System.Collections.Specialized;
+using System.Drawing;
 using Adventure;
+using Utils;
 
 namespace DEBUFF
 {
@@ -7,12 +10,23 @@ namespace DEBUFF
     {
 
         public static List<string> Debuffs = new List<string>() { "poison", "cold", "hot", "lmao" };
-        private static string currentDebuffPlayer = string.Empty;
-        public static int CurrentDebuffDuration = 0;
-        public static int DebuffTick(int hero) {
-            if(CurrentDebuffDuration > 0)
-                return CurrentDebuffDuration--;
+        public static string currentPlayerDebuff = "No debuff... yet...";
+        private static int currentDebuffDamage = 0;
+        public static int currentDebuffDuration = 0;
+        public static bool playerDebuff = true;
+        public static string preferredColor = String.Empty;
+        public static int DebuffTick()
+        {
+
+            if (currentDebuffDuration > 0)
+            {
+                currentDebuffDuration--;
+                return currentDebuffDamage;
+            }
+            playerDebuff = false;
+            currentPlayerDebuff = "No debuff... yet...";
             return 0;
+
         }
         public static bool CheckDebuff(string debuffValue)
         {
@@ -33,7 +47,7 @@ namespace DEBUFF
             }
             else if (debuffType == "cold")
             {
-                return -1000;
+                return DebuffCold();
             }
             else if (debuffType == "lmao")
             {
@@ -42,10 +56,26 @@ namespace DEBUFF
             return 0;
         }
 
-        private static int DebuffPoison() {
-            CurrentDebuffDuration = 2;
-            int damage = -100;
-            return damage;
+        private static int DebuffPoison()
+        {
+            preferredColor = ANSICodes.Colors.Green;
+            SetDebuffAction("poisoned", 3, 2);
+            return currentDebuffDamage;
+        }
+
+        private static int DebuffCold()
+        {
+            preferredColor = ANSICodes.Colors.Blue;
+            SetDebuffAction("cold", 10, 1);
+            return currentDebuffDamage;
+        }
+
+        private static void SetDebuffAction(string currentDebuff, int debuffDuration, int debuffDamage)
+        {
+            playerDebuff = true;
+            currentPlayerDebuff = currentDebuff;
+            currentDebuffDuration = debuffDuration;
+            currentDebuffDamage = debuffDamage;
         }
 
     }

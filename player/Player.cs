@@ -15,7 +15,7 @@ namespace Adventure
 
         public Player()
         {
-            hp = 3;
+            hp = 10;
             cold = false;
         }
 
