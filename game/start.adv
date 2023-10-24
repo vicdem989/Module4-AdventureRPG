@@ -9,7 +9,7 @@
     [Action.floor.take]
         Description => You pick up the key and put it in your pocket
         Status => pocket
-        Player => Inventory.add
+        Player => Inventory.Add
     [Action.floor.lick]
         Description => You lick the key; it has the flavors of strawberries and shattered dreams
         Player => poisen.debuff 3

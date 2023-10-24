@@ -9,7 +9,7 @@
     [Action.still.kick]
     Description => You kick the water but you get drenched. After regaining your sight, you see something unsettling in the distance
     Status => disturbed
-    Cold => true
+    Player => cold.true
 
 [element]
     Id = Water Element

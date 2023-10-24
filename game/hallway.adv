@@ -9,7 +9,7 @@
     Status = faraway
     [Action.faraway.kick]
     Description => The rabbit is to war away, you over ballance and fall on your arse.
-    Player => hp.random(kick)
+    Player => hp.dec
 
 [door]
     Id =  Open Door

@@ -1,3 +1,6 @@
+using DEBUFF;
+using Adventure.BuildingBlocks;
+
 namespace Adventure
 {
 
@@ -6,14 +9,16 @@ namespace Adventure
     {
 
         public int hp { get; set; }
-        public bool cold {get ; set; }
+
+        public Dictionary<String, Item> Inventory { get; set; }
+        public bool cold { get; set; }
 
         public Player()
         {
             hp = 3;
             cold = false;
         }
-
     }
+
 
 }

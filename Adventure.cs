@@ -40,7 +40,7 @@ namespace Adventure
         public Action<Type, Object[]> OnExitScreen { get; set; }
         public static Adventure.Parser parser = new();
 
-        Player hero;
+        public static Player hero;
         public void Init()
         {
             command = commandBuffer = String.Empty;
@@ -105,7 +105,7 @@ namespace Adventure
             command = String.Empty;
 
             // This is not a good solution, rewrite for clearity.
-            if (hero.hp == 0)
+            if (hero.hp < 0)
             {
                 currentDescription += OutputValues.ResponseDed(); //TODO: Remove magick string, les statick feadback?
             }
@@ -211,6 +211,12 @@ namespace Adventure
                 PaddingCenter(currentRow, currentColumn);
                 /// TODO: Magic string, fix DONE
                 Write(OutputValues.qualityOfLife.WritingSymbol + $"{commandBuffer}");
+
+                /*if(hero.cold == true) {
+                    Write("ME COLD");
+                } else {
+                    Write("NOCOLD SADGE");
+                }*/
             }
         }
 
