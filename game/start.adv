@@ -10,6 +10,7 @@
         Description => You pick up the key and put it in your pocket
         Status => pocket
         Player => Inventory.Add
+        dsa => Inventory.Add
         Debuff => poison
     [Action.floor.lick]
         Description => You lick the key; it has the flavors of strawberries and shattered dreams

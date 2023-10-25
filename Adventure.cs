@@ -10,6 +10,7 @@ using DEBUFF;
 using System.Linq.Expressions;
 using System.Reflection.Metadata.Ecma335;
 using COMMANDS;
+using INVENTORY;
 
 
 namespace Adventure
@@ -99,29 +100,16 @@ namespace Adventure
             {
                 basicCommands[command](this);
             }
-            else if (command == "abyss")//command.Contains("/"))
+            else if (command.Contains("/"))
             {
-                //Environment.Exit(0);
-                string location = command.ToLower();//Remove(0).ToLower();
-                if (Commands.VerifyLocation(command) != "")
+                string location = command.ToLower().Replace("/", " ").Trim(' ');
+
+                if (Commands.VerifyLocation(location) != "")
                 {
-                    //Environment.Exit(0);
                     currentLocation = Commands.GoToLocation();
                     currentDescription = Commands.GoToLocation().Description;
-
                     return;
                 }
-                /*
-                Check if list of commands exists
-                User can input /tp (location)
-                if part[0] == "/tp"
-                    location = part[1].tolower()
-                    moveTo(location) in cheat code class
-                    moveTo(string location) {
-
-                    }
-
-                */
             }
             else
             {
@@ -248,9 +236,13 @@ namespace Adventure
                     Write("Current Status: " + AddColor(Debuff.currentPlayerDebuff, ANSICodes.Colors.White, true, false));
                 }
 
+                if(hero.Inventory.Count() > 0) {
+                   
+                }
+
                 PaddingCenter(currentRow, currentColumn);
-                /// TODO: Magic string, fix DONE
-                Write("HP:" + AddColor(" " + hero.hp, ANSICodes.Colors.Red, true, false) + " " + OutputValues.qualityOfLife.WritingSymbol + $" {commandBuffer}");
+                /// TODO: Magic string, fix
+                Write("HP: " + hero.Inventory.Count + AddColor(" " + hero.hp, ANSICodes.Colors.Red, true, false) + " " + OutputValues.qualityOfLife.WritingSymbol + $" {commandBuffer}");
             }
         }
 
@@ -263,13 +255,14 @@ namespace Adventure
             int maxWordsPerLine = 0;
             int outputLength = currentDescription.Length;
             PaddingCenter(currentRow, currentColumn);
+
             if (outputLength < stringLengthMax)
             {
                 PaddingCenter(currentRow, currentColumn);
                 Write(Reset(ColorizeWords(currentDescription, ANSICodes.Colors.Blue, ANSICodes.Colors.Yellow)), newLine: true);
                 return;
             }
-            Write($"{new string(OutputValues.qualityOfLife.AfterDesc, MAX_LINE_WIDTH)}", newLine: true);
+           // Write($"{new string(OutputValues.qualityOfLife.AfterDesc, MAX_LINE_WIDTH)}", newLine: true);
 
             PaddingCenter(currentRow, currentColumn);
             char[] outputChar = currentDescription.ToCharArray();
@@ -284,8 +277,8 @@ namespace Adventure
                 }
                 Write(Reset(ColorizeWords(output[i].ToString() + " ", ANSICodes.Colors.Blue, ANSICodes.Colors.Yellow)), newLine: false);
             }
-
-
+            PaddingCenter(currentRow, currentColumn);
+            Write($"{new string(OutputValues.qualityOfLife.AfterDesc, MAX_LINE_WIDTH)}", newLine: true);
         }
 
         private void PaddingCenter(int currentRow, int currentColumn)

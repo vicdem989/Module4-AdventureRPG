@@ -26,3 +26,17 @@ C:\Users\vicde\OneDrive\Desktop\Assignment4_AdventureRPG\Module4-AdventureRPG\ob
 C:\Users\vicde\OneDrive\Desktop\Assignment4_AdventureRPG\Module4-AdventureRPG\obj\Debug\net7.0\adventure.pdb
 C:\Users\vicde\OneDrive\Desktop\Assignment4_AdventureRPG\Module4-AdventureRPG\obj\Debug\net7.0\adventure.genruntimeconfig.cache
 C:\Users\vicde\OneDrive\Desktop\Assignment4_AdventureRPG\Module4-AdventureRPG\obj\Debug\net7.0\ref\adventure.dll
+C:\Users\esport\Documents\GitHub\Module4-AdventureRPG\bin\Debug\net7.0\adventure.exe
+C:\Users\esport\Documents\GitHub\Module4-AdventureRPG\bin\Debug\net7.0\adventure.deps.json
+C:\Users\esport\Documents\GitHub\Module4-AdventureRPG\bin\Debug\net7.0\adventure.runtimeconfig.json
+C:\Users\esport\Documents\GitHub\Module4-AdventureRPG\bin\Debug\net7.0\adventure.dll
+C:\Users\esport\Documents\GitHub\Module4-AdventureRPG\bin\Debug\net7.0\adventure.pdb
+C:\Users\esport\Documents\GitHub\Module4-AdventureRPG\obj\Debug\net7.0\adventure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\esport\Documents\GitHub\Module4-AdventureRPG\obj\Debug\net7.0\adventure.AssemblyInfoInputs.cache
+C:\Users\esport\Documents\GitHub\Module4-AdventureRPG\obj\Debug\net7.0\adventure.AssemblyInfo.cs
+C:\Users\esport\Documents\GitHub\Module4-AdventureRPG\obj\Debug\net7.0\adventure.csproj.CoreCompileInputs.cache
+C:\Users\esport\Documents\GitHub\Module4-AdventureRPG\obj\Debug\net7.0\adventure.dll
+C:\Users\esport\Documents\GitHub\Module4-AdventureRPG\obj\Debug\net7.0\refint\adventure.dll
+C:\Users\esport\Documents\GitHub\Module4-AdventureRPG\obj\Debug\net7.0\adventure.pdb
+C:\Users\esport\Documents\GitHub\Module4-AdventureRPG\obj\Debug\net7.0\adventure.genruntimeconfig.cache
+C:\Users\esport\Documents\GitHub\Module4-AdventureRPG\obj\Debug\net7.0\ref\adventure.dll

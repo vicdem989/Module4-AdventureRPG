@@ -1,4 +1,5 @@
 using Adventure;
+using COMMANDS;
 using Utils;
 using static Adventure.AssetsAndSettings;
 
@@ -60,6 +61,7 @@ public class Game
 
     private static void Init()
     {
+        Commands commands= new Commands();
         Console.CancelKeyPress += new ConsoleCancelEventHandler(Exit);
 
         Console.Write(ANSICodes.HideCursor);
