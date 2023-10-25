@@ -59,14 +59,14 @@ namespace DEBUFF
         private static int DebuffPoison()
         {
             preferredColor = ANSICodes.Colors.Green;
-            SetDebuffAction("poisoned", 3, 2);
+            SetDebuffAction("poisoned", 3, 1);
             return currentDebuffDamage;
         }
 
         private static int DebuffCold()
         {
             preferredColor = ANSICodes.Colors.Blue;
-            SetDebuffAction("cold", 10, 1);
+            SetDebuffAction("cold", 5, 1);
             return currentDebuffDamage;
         }
 

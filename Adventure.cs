@@ -99,14 +99,16 @@ namespace Adventure
             {
                 basicCommands[command](this);
             }
-            else if (command.Contains("/"))
+            else if (command == "abyss")//command.Contains("/"))
             {
                 //Environment.Exit(0);
                 string location = command.ToLower();//Remove(0).ToLower();
-                if (Commands.VerifyLocation(location) != "")
+                if (Commands.VerifyLocation(command) != "")
                 {
-                    Commands.GoToLocation(location);
-                    currentDescription = currentLocation.Description;
+                    //Environment.Exit(0);
+                    currentLocation = Commands.GoToLocation();
+                    currentDescription = Commands.GoToLocation().Description;
+
                     return;
                 }
                 /*

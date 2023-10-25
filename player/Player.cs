@@ -9,6 +9,7 @@ namespace Adventure
     {
 
         public int hp { get; set; }
+        public int damage { get; set; }
 
         public Dictionary<String, Item> Inventory { get; set; }
         public bool cold { get; set; }
@@ -16,7 +17,7 @@ namespace Adventure
         public Player()
         {
             hp = 10;
-            cold = false;
+            damage = 5;
         }
 
     }
