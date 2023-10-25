@@ -198,6 +198,8 @@ namespace Adventure
                 else if (assertionKey == "Debuff" && Debuff.CheckDebuff(assertionValue) == true) ///TODO: Remove magick string
                 {
                     hero.hp -= Debuff.ApplyDebuff(assertionValue);
+                } else if (assertionKey == "Pllayer"& && assertionValue == "Inventory.Add") {
+                    //DO STUFF
                 }
                 else if (assertionKey == OutputValues.qualityOfLife.AssertionKeyMove) ///TODO: You know what to do. 
                 {
