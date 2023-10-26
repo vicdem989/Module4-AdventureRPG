@@ -267,6 +267,12 @@ namespace Adventure
                 PaddingCenter(currentRow, currentColumn);
                 /// TODO: Magic string, fix
                 Write("HP: " + hero.inventory.Count + AddColor(" " + hero.hp, ANSICodes.Colors.Red, true, false) + " " + OutputValues.qualityOfLife.WritingSymbol + $" {commandBuffer}");
+
+                PaddingCenter(currentRow, currentColumn);
+                for (int i = 0; i < hero.hp; i++)
+                {
+                    Write("<3 ");
+                }
             }
         }
 
