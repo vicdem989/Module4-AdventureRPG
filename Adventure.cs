@@ -11,6 +11,7 @@ using System.Linq.Expressions;
 using System.Reflection.Metadata.Ecma335;
 using COMMANDS;
 using INVENTORY;
+using System.Threading.Channels;
 
 
 namespace Adventure
@@ -96,7 +97,8 @@ namespace Adventure
                 command = string.Empty;
                 return;
             }
-            if(command == "i") {
+            if (command == "i")
+            {
                 //hero.InventoryDisplay();
                 currentDescription = hero.inventory[0].ItemID;
                 return;
@@ -203,11 +205,16 @@ namespace Adventure
                 else if (assertionKey == "Debuff" && Debuff.CheckDebuff(assertionValue) == true) ///TODO: Remove magick string
                 {
                     hero.hp -= Debuff.ApplyDebuff(assertionValue);
-                } else if (assertionKey == "Player" && assertionValue == "Inventory.Add") {
+                }
+                else if (assertionKey == "Player" && assertionValue == "Inventory.Add")
+                {
                     hero.InventoryAdd(target.Id, target.Damage, target.Description);
-                }else if (assertionKey == "Player" && assertionValue == "Inventory.Remove") {
+                }
+                else if (assertionKey == "Player" && assertionValue == "Inventory.Remove")
+                {
                     hero.InventoryRemove(target.Id);
-                }else if (assertionKey == OutputValues.qualityOfLife.AssertionKeyMove) ///TODO: You know what to do. 
+                }
+                else if (assertionKey == OutputValues.qualityOfLife.AssertionKeyMove) ///TODO: You know what to do. 
                 {
                     Adventure.Parser parser = new();
                     currentLocation = parser.CreateLocationFromDescription($"game/{assertionValue}");
@@ -265,35 +272,27 @@ namespace Adventure
 
         private void OutputDesc(int currentRow, int currentColumn)
         {
-            int spacesCount = 0;
-            int stringLengthMin = 85;
-            int stringLengthMax = 96;
-
-            int maxWordsPerLine = 0;
-            int outputLength = currentDescription.Length;
             PaddingCenter(currentRow, currentColumn);
-
-            if (outputLength < stringLengthMax)
+            //Write(Reset(ColorizeWords(currentDescription + " ", ANSICodes.Colors.Blue, ANSICodes.Colors.Yellow)), newLine: false);
+            int spaceCount = 0;
+            char[] currDesc = currentDescription.ToArray();
+            foreach (char test in currDesc)
             {
-                PaddingCenter(currentRow, currentColumn);
-                Write(Reset(ColorizeWords(currentDescription, ANSICodes.Colors.Blue, ANSICodes.Colors.Yellow)), newLine: true);
-                return;
-            }
-           // Write($"{new string(OutputValues.qualityOfLife.AfterDesc, MAX_LINE_WIDTH)}", newLine: true);
-
-            PaddingCenter(currentRow, currentColumn);
-            char[] outputChar = currentDescription.ToCharArray();
-            string[] output = currentDescription.Split(" ");
-            for (int i = 0; i < output.Length; i++)
-            {
-                spacesCount++;
-                if (spacesCount > maxWordsPerLine && output[i] == " ")
+                spaceCount++;
+                if (spaceCount < 96)
                 {
-                    spacesCount = 0;
-                    PaddingCenter(currentRow, currentColumn);
+                    Write(test.ToString());
                 }
-                Write(Reset(ColorizeWords(output[i].ToString() + " ", ANSICodes.Colors.Blue, ANSICodes.Colors.Yellow)), newLine: false);
+                else
+                {
+                    Write("\n");
+                    PaddingCenter(currentRow, currentColumn);
+                    spaceCount = 0;
+
+                }
             }
+
+
             PaddingCenter(currentRow, currentColumn);
             Write($"{new string(OutputValues.qualityOfLife.AfterDesc, MAX_LINE_WIDTH)}", newLine: true);
         }

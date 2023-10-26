@@ -37,9 +37,23 @@ Before you write any code, you should "sketch" the pseudo code and make a flowch
 ### Module Requirements
 
 - **TODOS**: Do all the things that are tagged with `///TODO:` in the code.
-- **Inventory**: Implement an inventory for the player, and the functionality for adding and removing items.
+- **Inventory**: Implement an inventory for the player, and the functionality for adding and removing items. IS INFVENTORY
 - **More Locations**: Implement a minimum of two more locations for the player to travel to. **DONE ISH**
 - **Items**: Create at least one artifact that needs to be combined with another artifact to make a change (for instance, a key and lock).
+
+        if you have item A and item B
+            player: combine item a item B  
+                gets a better item
+        some rooms can have puzzles
+        e.g. start room
+            door locked - unlock if clean key
+            students have key
+                if students tickle
+                    students drop key
+            sink to clean key
+                sink cleans key
+            if key condition = clean & in hero.inventory
+                door can be unlocked
 
 ### Challenge Requirements (Higher Grades)
 
