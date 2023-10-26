@@ -216,6 +216,7 @@ namespace Adventure
                 }
                 else if (assertionKey == OutputValues.qualityOfLife.AssertionKeyMove) ///TODO: You know what to do. 
                 {
+                    Console.Clear();
                     Adventure.Parser parser = new();
                     currentLocation = parser.CreateLocationFromDescription($"game/{assertionValue}");
                     currentDescription = $"{currentDescription}\n{currentLocation.Description}";
@@ -233,11 +234,11 @@ namespace Adventure
                 int currentRow = startRow;
                 int currentColumn = startColumn;
                 Console.Clear();
-                PaddingCenter(currentRow, currentColumn);
+
 
                 ///TODO: There is a problem when the description extends over  WORKING ON
+                PaddingCenter(currentRow, currentColumn);
                 OutputDesc(currentRow, currentColumn);
-
                 PaddingCenter(currentRow, currentColumn);
                 /// TODO: Magic string, fix DONE
 
@@ -260,7 +261,6 @@ namespace Adventure
                         Console.WriteLine($"\nNAME: {element.ItemID}");
                         Console.WriteLine($"DMG: {element.ItemDmg}"); 
                         Console.WriteLine($"DESC: {element.ItemDesc}");
-                        Console.WriteLine(element);
                     }
                 }*/
 
@@ -271,7 +271,7 @@ namespace Adventure
                 PaddingCenter(currentRow, currentColumn);
                 for (int i = 0; i < hero.hp; i++)
                 {
-                    Write("<3 ");
+                    Write("♥ ");
                 }
             }
         }
@@ -280,25 +280,34 @@ namespace Adventure
         {
             PaddingCenter(currentRow, currentColumn);
             //Write(Reset(ColorizeWords(currentDescription + " ", ANSICodes.Colors.Blue, ANSICodes.Colors.Yellow)), newLine: false);
-            int spaceCount = 0;
             char[] currDesc = currentDescription.ToArray();
-            foreach (char test in currDesc)
+            int spaceCount = 0;
+            for (int i = 0; i < currDesc.Length; i++)
             {
+
                 spaceCount++;
-                if (spaceCount < 96)
+                //Console.ForegroundColor = ConsoleColor.Yellow;
+                if (currDesc[i] == ' ' || i == currDesc.Length - 1)
                 {
-                    Write(test.ToString());
+                    Console.ForegroundColor = ConsoleColor.Yellow;
                 }
-                else
+                else if (currDesc[i] == '*')
+                {
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                }
+
+                if (spaceCount > 96 && currDesc[i] == ' ')
                 {
                     Write("\n");
                     PaddingCenter(currentRow, currentColumn);
                     spaceCount = 0;
-
+                }
+                else
+                {
+                    Write(currDesc[i].ToString());
                 }
             }
-
-
+            Console.ResetColor();
             PaddingCenter(currentRow, currentColumn);
             Write($"{new string(OutputValues.qualityOfLife.AfterDesc, MAX_LINE_WIDTH)}", newLine: true);
         }
