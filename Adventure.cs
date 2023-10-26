@@ -237,9 +237,8 @@ namespace Adventure
 
 
                 ///TODO: There is a problem when the description extends over  WORKING ON
-                PaddingCenter(currentRow, currentColumn);
+                //PaddingCenter(currentRow, currentColumn);
                 OutputDesc(currentRow, currentColumn);
-                PaddingCenter(currentRow, currentColumn);
                 /// TODO: Magic string, fix DONE
 
                 PaddingCenter(currentRow, currentColumn);
