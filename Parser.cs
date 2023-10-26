@@ -36,7 +36,7 @@ namespace Adventure
                 {
                     Item item = new Item();
                     item = (Item)Hydrate(segment, item, keywords);
-                    location.Inventory.Add(segment.Key, item);
+                    location.Inventory.Add(segment.Key, item); 
                 }
             }
 

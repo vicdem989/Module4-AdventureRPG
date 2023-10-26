@@ -96,6 +96,11 @@ namespace Adventure
                 command = string.Empty;
                 return;
             }
+            if(command == "i") {
+                //hero.InventoryDisplay();
+                currentDescription = hero.inventory[0].ItemID;
+                return;
+            }
             if (basicCommands.ContainsKey(command))
             {
                 basicCommands[command](this);
@@ -198,10 +203,11 @@ namespace Adventure
                 else if (assertionKey == "Debuff" && Debuff.CheckDebuff(assertionValue) == true) ///TODO: Remove magick string
                 {
                     hero.hp -= Debuff.ApplyDebuff(assertionValue);
-                } else if (assertionKey == "Pllayer"& && assertionValue == "Inventory.Add") {
-                    //DO STUFF
-                }
-                else if (assertionKey == OutputValues.qualityOfLife.AssertionKeyMove) ///TODO: You know what to do. 
+                } else if (assertionKey == "Player" && assertionValue == "Inventory.Add") {
+                    hero.InventoryAdd(target.Id, target.Damage, target.Description);
+                }else if (assertionKey == "Player" && assertionValue == "Inventory.Remove") {
+                    hero.InventoryRemove(target.Id);
+                }else if (assertionKey == OutputValues.qualityOfLife.AssertionKeyMove) ///TODO: You know what to do. 
                 {
                     Adventure.Parser parser = new();
                     currentLocation = parser.CreateLocationFromDescription($"game/{assertionValue}");
@@ -238,13 +244,22 @@ namespace Adventure
                     Write("Current Status: " + AddColor(Debuff.currentPlayerDebuff, ANSICodes.Colors.White, true, false));
                 }
 
-                if(hero.Inventory.Count() > 0) {
-                   
-                }
+                /*if(hero.inventory.Count() > 0) {
+                    /*foreach(KeyValuePair<string, Item> element in hero.Inventory) {
+                        Console.WriteLine("Key = {0}, Value = {1}", element.Key, element.Value);
+                    }
+
+                    foreach(PlayerItem element in hero.inventory) {
+                        Console.WriteLine($"\nNAME: {element.ItemID}");
+                        Console.WriteLine($"DMG: {element.ItemDmg}"); 
+                        Console.WriteLine($"DESC: {element.ItemDesc}");
+                        Console.WriteLine(element);
+                    }
+                }*/
 
                 PaddingCenter(currentRow, currentColumn);
                 /// TODO: Magic string, fix
-                Write("HP: " + hero.Inventory.Count + AddColor(" " + hero.hp, ANSICodes.Colors.Red, true, false) + " " + OutputValues.qualityOfLife.WritingSymbol + $" {commandBuffer}");
+                Write("HP: " + hero.inventory.Count + AddColor(" " + hero.hp, ANSICodes.Colors.Red, true, false) + " " + OutputValues.qualityOfLife.WritingSymbol + $" {commandBuffer}");
             }
         }
 

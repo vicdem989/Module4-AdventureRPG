@@ -4,22 +4,21 @@
     Damage = 7
 [key]
     Id = Evil Key 
+    Damage = 2
     Description = A key that is made of a compound so dark it drains the light around it.
     Status = floor
     [Action.floor.take]
         Description => You pick up the key and put it in your pocket
         Status => pocket
         Player => Inventory.Add
-        dsa => Inventory.Add
         Debuff => poison
     [Action.floor.lick]
         Description => You lick the key; it has the flavors of strawberries and shattered dreams
-        Player => poisen.debuff 3
         Debuff => poison
     [Action.pocket.throw]
         Description => You throw the key away
         Status => floor
-        Player => Inventory.remove
+        Player => Inventory.Remove
         Location => Inventory.add
 
 [window]
@@ -30,9 +29,11 @@
     Id = Just some sudentes
     Description = A bunch of students siting on the floor
     Status = idle
+    Damage = 100
     [Action.idle.tickle]
         Description => They do not like that
         Status => enraged
+        Player => Inventory.Add
     [Action.enraged.attack]
         Description => You attacked the students but got overwhelmed!
 
