@@ -205,9 +205,20 @@ namespace Adventure
                 {
                     hero.hp -= int.Parse(currentLocation.Damage);
                 }
-                else if (assertionKey == "Debuff" && Debuff.CheckDebuff(assertionValue) == true) ///TODO: Remove magick string
+                else if (assertionKey == "Debuff") ///TODO: Remove magick string
                 {
-                    hero.hp -= Debuff.ApplyDebuff(assertionValue);
+                    string[] debuffParts = assertionValue.Split(" - ", StringSplitOptions.TrimEntries);
+                    if (debuffParts.Length < 3) {
+                        break;
+                    }
+
+                    string debuffType = debuffParts[0];
+                    int debuffDuration = int.Parse(debuffParts[1]);
+                    int debuffDamage = int.Parse(debuffParts[2]);
+                    if (Debuff.CheckDebuff(debuffType) == true)
+                    {
+                        Debuff.ApplyDebuff(debuffType, debuffDuration, debuffDamage);
+                    }
                 }
                 else if (assertionKey == "Player")
                 {
@@ -259,7 +270,7 @@ namespace Adventure
 
                 PaddingCenter(currentRow, currentColumn);
                 /// TODO: Magic string, fix
-                Write(OutputValues.qualityOfLife.WritingSymbol + $" {commandBuffer}");
+                Write(OutputValues.qualityOfLife.WritingSymbol + $" {commandBuffer}" + "_");
 
                 PaddingCenter(currentRow, currentColumn);
                 Write("HP " + hero.hp + ": ");

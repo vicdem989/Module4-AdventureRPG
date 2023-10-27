@@ -41,15 +41,15 @@ namespace DEBUFF
             }
             return false;
         }
-        public static int ApplyDebuff(string debuffType)
+        public static int ApplyDebuff(string debuffType, int duration, int damage)
         {
             if (debuffType == "poison")
             {
-                return DebuffPoison();
+                return DebuffPoison(duration, damage);
             }
             else if (debuffType == "cold")
             {
-                return DebuffCold();
+                return DebuffCold(duration, damage);
             }
             else if (debuffType == "lmao")
             {
@@ -58,17 +58,19 @@ namespace DEBUFF
             return 0;
         }
 
-        private static int DebuffPoison()
+        private static int DebuffPoison(int duration, int damage)
         {
             preferredColor = ANSICodes.Colors.Green;
-            SetDebuffAction("poisoned", 3, 1);
+            SetDebuffAction("poisoned", duration, 1);
+            currentDebuffDamage = damage;
             return currentDebuffDamage;
         }
 
-        private static int DebuffCold()
+        private static int DebuffCold(int duration, int damage)
         {
             preferredColor = ANSICodes.Colors.Blue;
-            SetDebuffAction("cold", 5, 1);
+            SetDebuffAction("cold", duration, 1);
+            currentDebuffDamage = damage;
             return currentDebuffDamage;
         }
 

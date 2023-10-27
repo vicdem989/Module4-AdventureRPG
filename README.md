@@ -66,6 +66,16 @@ Before you write any code, you should "sketch" the pseudo code and make a flowch
 - **Cheat Codes**: Implement a minimum of two cheat codes (teleport is a good idea). **DONE**
 - **Duration Effects**: Implement a system that enables recurring effects (example: poison debuff, scared, prone, blurry vision, etc.). **DONE**
 - **Update Location Description**: When an item (e.g., the key in the start room) is added to the player's inventory, it should not be part of the room description anymore.
+
+    Each item has a specific description
+        At the beginning of the locaiton
+            Check for values
+                have a separate file for description strings.   
+                If key, window, door present
+                    Print key, window, door custom description
+                else 
+                    Only print whats present
+            if all values are present, print default
 - **Keep State**: When a player comes back to a location (if you allow the player to revisit), the location should have the changes that the player created previously still be there.
 
 ### HARD Requirements

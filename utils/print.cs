@@ -38,20 +38,29 @@ namespace Utils
             return $"{color}{text}{ANSICodes.Reset}";
 
         }
-        public static string Write(String text, bool newLine = false)
+        public static string Write(string text, bool newLine = false)
         {
             /// TODO: There is a line limit, but it is not enforced in this function. It should be. 
+            
+            string[] outputString = text.Split();
+            int spaceCount = 0;
+
             if (newLine)
             {
                 Console.WriteLine(text);
             }
             else
             {
-                if (text.Length > MAX_LINE_WIDTH)
-                {
-                    text.Append('\n');
+                //Console.Write(text);
+                foreach (string element in outputString) {
+                    Console.Write(element + " ");
+                    if(spaceCount > 50) {
+                        Console.WriteLine("\n");
+                        spaceCount = 0;
+                    } else {
+                        spaceCount++;
+                    }
                 }
-                Console.Write(text);
             }
             return text;
         }
