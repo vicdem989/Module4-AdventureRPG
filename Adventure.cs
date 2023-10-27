@@ -13,6 +13,9 @@ using COMMANDS;
 using INVENTORY;
 using System.Threading.Channels;
 using System.Collections.Concurrent;
+using System.Data.Common;
+using ITEMCUSTOMDESCRIPTION;
+using System.ComponentModel;
 
 
 namespace Adventure
@@ -23,7 +26,9 @@ namespace Adventure
         int startRow = 5;
         int startColumn = (int)((Console.WindowWidth - MAX_LINE_WIDTH) * 0.5);
 
+
         public static Player hero;
+        public static ItemDusctomDescription CustomDesc;
 
         #region  Basic Commands -------------------------------------------------------------------------------
 
@@ -31,7 +36,7 @@ namespace Adventure
         const string CLEAR_COMMAND = "clear";
         const string HELP_COMMAND = "help";
         const string LOOK_COMMAND = "look";
-        const string BAG_COMMAND = "bag";
+        const string BAG_COMMAND = "inv";
         Dictionary<string, Action<AdvenureGame>> basicCommands = new Dictionary<string, Action<AdvenureGame>>()
         {
             [QUIT_COMMAND] = (game) => { game.OnExitScreen(typeof(SplashScreen), new object[] { AssetsAndSettings.SPLASH_ART_FILE, true }); },
@@ -43,17 +48,19 @@ namespace Adventure
 
 
 
+
         #endregion
 
-        string commandBuffer;
+        string commandBuffer = string.Empty;
         static string command = string.Empty;
         string currentDescription = "";
         Location currentLocation;
         bool dirty = true;
         public Action<Type, Object[]> OnExitScreen { get; set; }
         public static Adventure.Parser parser = new();
+        string locationDescription = string.Empty;
 
-        const string GODMODE_CHEAT = "godmode";
+        const string GODMODE_CHEAT = "/godmode";
 
         Dictionary<string, Action<AdvenureGame>> cheatCommands = new Dictionary<string, Action<AdvenureGame>>()
         {
@@ -66,6 +73,7 @@ namespace Adventure
             currentLocation = parser.CreateLocationFromDescription(AssetsAndSettings.GAME_SOURCE);
             currentDescription = currentLocation.Description;
             hero = new Player();
+            CustomDesc = new ItemDusctomDescription();
         }
         public void Input()
         {
@@ -102,13 +110,26 @@ namespace Adventure
             {
                 hero.hp -= Debuff.DebuffTick();
             }
-            if (basicCommands.ContainsKey(command))
-            {
-                basicCommands[command](this);
-            }
-            else if (cheatCommands.ContainsKey(command))
+            if (cheatCommands.ContainsKey(command))
             {
                 cheatCommands[command](this);
+            }
+            else if (command.Contains("test"))
+            {
+                //currentDescription = currentLocation.Inventory[; //ItemDusctomDescription.StartKey[0] + ItemDusctomDescription.StartWindow[0];
+                /*string finalDescription = string.Empty;
+                currentDescription = finalDescription;*/
+                //currentDescription = currentLocation.LocationDescriptionType[0];// + "  " +  currentLocation.LocationDescriptionType[0];//ItemDusctomDescription.CreateCustomLocationDescription("A broken window") + ItemDusctomDescription.CreateCustomLocationDescription("Evil");
+                if (currentLocation.LocationDescriptionType[0] != "standard")
+                {
+                    currentDescription = ItemDusctomDescription.CreateCustomLocationDescription("Evil Key");
+                    Environment.Exit(0);
+                }
+                else
+                {
+                    currentDescription = currentLocation.Description;
+                }
+                return;
             }
             else if (command.Contains("/"))
             {
@@ -119,6 +140,30 @@ namespace Adventure
                     currentLocation = Commands.GoToLocation();
                     currentDescription = Commands.GoToLocation().Description;
                     return;
+                }
+            }
+            if (basicCommands.ContainsKey(command))
+            {
+                basicCommands[command](this);
+            }
+            else if (command.Contains("delete"))
+            {
+                if (!hero.inventoryOpen)
+                {
+                    currentDescription = "Ye inventory needs to be open first... type *inv* to open";
+                }
+                else
+                {
+                    string[] commandParts = command.Split(" ", StringSplitOptions.TrimEntries);
+                    string itemToRemove = commandParts[1];
+
+                    if (commandParts.Length > 2)
+                        return;
+                    if (!hero.VerifyItemInInventory(itemToRemove))
+                    {
+                        currentDescription += "No such item in your inventory";
+                    }
+                    currentDescription = hero.InventoryRemove(itemToRemove);
                 }
             }
             else
@@ -208,7 +253,8 @@ namespace Adventure
                 else if (assertionKey == "Debuff") ///TODO: Remove magick string
                 {
                     string[] debuffParts = assertionValue.Split(" - ", StringSplitOptions.TrimEntries);
-                    if (debuffParts.Length < 3) {
+                    if (debuffParts.Length < 3)
+                    {
                         break;
                     }
 
@@ -224,7 +270,7 @@ namespace Adventure
                 {
                     if (assertionValue == "Inventory.Add")
                     {
-                        hero.InventoryAdd(target.Id, target.Damage, target.Description);
+                        hero.InventoryAdd(target.Id, target.Damage, target.Description, target.Status, target.Type);
                     }
                     else if (assertionValue == "Inventory.Remove")
                     {
@@ -238,7 +284,6 @@ namespace Adventure
                     currentLocation = parser.CreateLocationFromDescription($"game/{assertionValue}");
                     currentDescription = $"{currentDescription}\n{currentLocation.Description}";
                 }
-
             }
         }
 

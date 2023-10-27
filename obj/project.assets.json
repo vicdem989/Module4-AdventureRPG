@@ -8,19 +8,19 @@
     "net7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\vicde\\.nuget\\packages\\": {}
+    "C:\\Users\\esport\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\vicde\\Documents\\GitHub\\Module4-AdventureRPG\\adventure.csproj",
+      "projectUniqueName": "C:\\Users\\esport\\Documents\\GitHub\\Module4-AdventureRPG\\adventure.csproj",
       "projectName": "adventure",
-      "projectPath": "C:\\Users\\vicde\\Documents\\GitHub\\Module4-AdventureRPG\\adventure.csproj",
-      "packagesPath": "C:\\Users\\vicde\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\vicde\\Documents\\GitHub\\Module4-AdventureRPG\\obj\\",
+      "projectPath": "C:\\Users\\esport\\Documents\\GitHub\\Module4-AdventureRPG\\adventure.csproj",
+      "packagesPath": "C:\\Users\\esport\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\esport\\Documents\\GitHub\\Module4-AdventureRPG\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\vicde\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\esport\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
@@ -59,7 +59,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -1,15 +1,19 @@
 [location]
     Id = start room
     Description = You are standing in a room there is a *key* on the floor, a *door*, a *window*, a *trapdoor* and some *students*
+    DescriptionType = standard
     Damage = 7
 [key]
-    Id = Evil Key 
+    Id = Evil Key
     Damage = 2
     Description = A key that is made of a compound so dark it drains the light around it.
+    DescriptionType = standard
     Status = floor
+    Type = mainstory
     //WHILE HAVE KEY, DEBUFF = POISON
     [Action.floor.take]
         Description => You pick up the key and put it in your pocket
+        DescriptionType => new
         Status => pocket
         Player => Inventory.Add
         Debuff => poison - 2 - 1
@@ -25,12 +29,15 @@
 [window]
     Id = A broken window
     Description = A broken window, marked by blood and tinged with heartache.
+    DescriptionType = standard
 
 [students]
-    Id = Just some sudentes
+    Id = Just some students
     Description = A bunch of students siting on the floor
+    DescriptionType = standard
     Status = idle
     Damage = 100
+    
     [Action.idle.tickle]
         Description => They do not like that
         Status => enraged
@@ -42,6 +49,7 @@
     Id = Broken door
     Status = locked
     Description = A door of poor quality, clearly shoody workmanship. 
+    DescriptionType = standard
     [Action.locked.unlock] 
         Description => As you unlock the door, the key gets stuck in the door!
         Player => Inventory.Check key
@@ -60,6 +68,7 @@
     Id = Trapdoor
     Status = locked
     Description = A poorly structured trapdoor with an omnious glow below it.
+    DescriptionType = standard
     [Action.locked.jump]
         Description => The trapdoor breaks and you fall for what feels like an eternity;
         Status => open

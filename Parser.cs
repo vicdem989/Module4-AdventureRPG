@@ -31,12 +31,16 @@ namespace Adventure
                 if (segment.Key == "location")
                 {
                     location = (Location)Hydrate(segment, location, keywords);
+                    location.LocationInventoryIDs.Add(location.Id);
+                    location.LocationInventoryIDs.Add(location.DescriptionType);
                 }
                 else
                 {
                     Item item = new Item();
                     item = (Item)Hydrate(segment, item, keywords);
                     location.Inventory.Add(segment.Key, item); 
+                    location.LocationInventoryIDs.Add(item.Id);
+                    location.LocationDescriptionType.Add(item.DescriptionType);
                 }
             }
 
@@ -68,6 +72,7 @@ namespace Adventure
                     List<String> actionDirective = segment.Value.GetRange(i, actionIndex);
                     target = UpdateWithAction(actionDirective, target, keywords);
                     i += (actionIndex - 1);
+                    
                 }
             }
 
