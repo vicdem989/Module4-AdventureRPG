@@ -9,7 +9,7 @@ namespace DEBUFF
     public class Debuff
     {
 
-        public static List<string> Debuffs = new List<string>() { "poison", "cold", "hot", "lmao" };
+        public static List<string> Debuffs = new List<string>() { "cleanse", "poison", "cold", "hot", "lmao" };
         public static string currentPlayerDebuff = "No debuff... yet...";
         private static int currentDebuffDamage = 0;
         public static int currentDebuffDuration = 0;
@@ -34,6 +34,8 @@ namespace DEBUFF
             {
                 if (debuffValue == element)
                 {
+                    if(debuffValue == "cleanse") 
+                        SetDebuffAction("No debuff... yet...", 0, 0);
                     return true;
                 }
             }

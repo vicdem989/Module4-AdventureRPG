@@ -42,6 +42,11 @@
     Id = Broken door
     Status = locked
     Description = A door of poor quality, clearly shoody workmanship. 
+    [Action.locked.unlock] 
+        Description => As you unlock the door, the key gets stuck in the door!
+        Player => Inventory.Check key
+        Status => open
+        Debuff => cleanse
     [Action.locked.kick]
         Description => The door splinters as your foot impacts it.
         Status => open

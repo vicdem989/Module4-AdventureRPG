@@ -23,14 +23,12 @@ namespace Adventure
 
         public Player()
         {
-            //Inventory.Add("lol", "ds");
             hp = 10;
             damage = 5;
         }
 
         public void InventoryAdd(string id, string damage, string desc)
         {
-            //Inventory.Add(name, locationItem);
             inventory.Add(new PlayerItem()
             {
                 ItemID = id,
@@ -51,7 +49,7 @@ namespace Adventure
             }
         }
 
-        public void InventoryDisplay()
+        public string InventoryDisplay()
         {
             /*
 
@@ -61,16 +59,15 @@ namespace Adventure
 
             */
 
-            if(inventory.Count == 0) {
-                Output.Write("Inventory empty lmao");
+            if(inventory.Count <= 0) {
+                return ("Inventory empty lmao");
             }
-
+            string output = "Wow inventory is not empty no more: \n";
             for (int i = 0; i < inventory.Count; i++) 
             {
-                Output.Write("Name: " + inventory[i].ItemID, true);
-                Output.Write("Damage" + inventory[i].ItemDmg, true);
-                Output.Write("Description" + inventory[i].ItemDesc, true);
+                output += inventory[i].ItemID + " \n";
             }
+            return output;
         }
 
 

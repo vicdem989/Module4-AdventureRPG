@@ -8,7 +8,7 @@
     Description = Still.. Clear.. Cold water that seems to go on endlessely
     Status = still
     [Action.still.kick]
-    Description => You kick the water but you get drenched. After regaining your sight, you see something unsettling in the distance
+    Description => You kick the water but you get drenched. After regaining your sight, you see something unsettling in the distance. The !element! swiftly makes it way to you, soon starting right in front of you...
     Status => disturbed
     Player => cold.true
     Debuff => cold

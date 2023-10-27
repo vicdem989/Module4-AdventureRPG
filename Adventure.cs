@@ -12,6 +12,7 @@ using System.Reflection.Metadata.Ecma335;
 using COMMANDS;
 using INVENTORY;
 using System.Threading.Channels;
+using System.Collections.Concurrent;
 
 
 namespace Adventure
@@ -22,31 +23,43 @@ namespace Adventure
         int startRow = 5;
         int startColumn = (int)((Console.WindowWidth - MAX_LINE_WIDTH) * 0.5);
 
+        public static Player hero;
+
         #region  Basic Commands -------------------------------------------------------------------------------
 
         const string QUIT_COMMAND = "quit";
         const string CLEAR_COMMAND = "clear";
         const string HELP_COMMAND = "help";
         const string LOOK_COMMAND = "look";
+        const string BAG_COMMAND = "bag";
         Dictionary<string, Action<AdvenureGame>> basicCommands = new Dictionary<string, Action<AdvenureGame>>()
         {
             [QUIT_COMMAND] = (game) => { game.OnExitScreen(typeof(SplashScreen), new object[] { AssetsAndSettings.SPLASH_ART_FILE, true }); },
             [CLEAR_COMMAND] = (game) => { Console.Clear(); },
             [HELP_COMMAND] = (game) => { game.currentDescription = "///TODO: This should print a helpfull message, maybe a list of commands? But it is not."; },
-            [LOOK_COMMAND] = (game) => { game.currentDescription = game.currentLocation.Description; }
+            [LOOK_COMMAND] = (game) => { game.currentDescription = game.currentLocation.Description; },
+            [BAG_COMMAND] = (game) => { game.currentDescription = hero.InventoryDisplay(); }
         };
+
+
 
         #endregion
 
         string commandBuffer;
-        string command;
+        static string command = string.Empty;
         string currentDescription = "";
         Location currentLocation;
         bool dirty = true;
         public Action<Type, Object[]> OnExitScreen { get; set; }
         public static Adventure.Parser parser = new();
 
-        public static Player hero;
+        const string GODMODE_CHEAT = "godmode";
+
+        Dictionary<string, Action<AdvenureGame>> cheatCommands = new Dictionary<string, Action<AdvenureGame>>()
+        {
+            [GODMODE_CHEAT] = (game) => { game.currentDescription = Commands.godModeCheat(command, hero); }
+        };
+
         public void Init()
         {
             command = commandBuffer = String.Empty;
@@ -89,23 +102,13 @@ namespace Adventure
             {
                 hero.hp -= Debuff.DebuffTick();
             }
-
-            if (command == OutputValues.qualityOfLife.godmode)
-            {
-                hero.hp += 999;
-                currentDescription = "That did not work, or did it?";
-                command = string.Empty;
-                return;
-            }
-            if (command == "i")
-            {
-                //hero.InventoryDisplay();
-                currentDescription = hero.inventory[0].ItemID;
-                return;
-            }
             if (basicCommands.ContainsKey(command))
             {
                 basicCommands[command](this);
+            }
+            else if (cheatCommands.ContainsKey(command))
+            {
+                cheatCommands[command](this);
             }
             else if (command.Contains("/"))
             {
@@ -206,13 +209,16 @@ namespace Adventure
                 {
                     hero.hp -= Debuff.ApplyDebuff(assertionValue);
                 }
-                else if (assertionKey == "Player" && assertionValue == "Inventory.Add")
+                else if (assertionKey == "Player")
                 {
-                    hero.InventoryAdd(target.Id, target.Damage, target.Description);
-                }
-                else if (assertionKey == "Player" && assertionValue == "Inventory.Remove")
-                {
-                    hero.InventoryRemove(target.Id);
+                    if (assertionValue == "Inventory.Add")
+                    {
+                        hero.InventoryAdd(target.Id, target.Damage, target.Description);
+                    }
+                    else if (assertionValue == "Inventory.Remove")
+                    {
+                        hero.InventoryRemove(target.Id);
+                    }
                 }
                 else if (assertionKey == OutputValues.qualityOfLife.AssertionKeyMove) ///TODO: You know what to do. 
                 {
@@ -251,26 +257,27 @@ namespace Adventure
                     Write("Current Status: " + AddColor(Debuff.currentPlayerDebuff, ANSICodes.Colors.White, true, false));
                 }
 
-                /*if(hero.inventory.Count() > 0) {
-                    /*foreach(KeyValuePair<string, Item> element in hero.Inventory) {
-                        Console.WriteLine("Key = {0}, Value = {1}", element.Key, element.Value);
-                    }
-
-                    foreach(PlayerItem element in hero.inventory) {
-                        Console.WriteLine($"\nNAME: {element.ItemID}");
-                        Console.WriteLine($"DMG: {element.ItemDmg}"); 
-                        Console.WriteLine($"DESC: {element.ItemDesc}");
-                    }
-                }*/
-
                 PaddingCenter(currentRow, currentColumn);
                 /// TODO: Magic string, fix
-                Write("HP: " + hero.inventory.Count + AddColor(" " + hero.hp, ANSICodes.Colors.Red, true, false) + " " + OutputValues.qualityOfLife.WritingSymbol + $" {commandBuffer}");
+                Write(OutputValues.qualityOfLife.WritingSymbol + $" {commandBuffer}");
 
                 PaddingCenter(currentRow, currentColumn);
+                Write("HP " + hero.hp + ": ");
                 for (int i = 0; i < hero.hp; i++)
                 {
-                    Write("♥ ");
+                    if (hero.hp < 20)
+                    {
+                        Write(" ♥ ");
+                    }
+                    else
+                    {
+                        Write("Too much hp... ");
+                        for (int j = 0; j < 3; j++)
+                        {
+                            Write(" ♥ ");
+                        }
+                        return;
+                    }
                 }
             }
         }
@@ -283,7 +290,6 @@ namespace Adventure
             int spaceCount = 0;
             for (int i = 0; i < currDesc.Length; i++)
             {
-
                 spaceCount++;
                 //Console.ForegroundColor = ConsoleColor.Yellow;
                 if (currDesc[i] == ' ' || i == currDesc.Length - 1)
@@ -293,6 +299,10 @@ namespace Adventure
                 else if (currDesc[i] == '*')
                 {
                     Console.ForegroundColor = ConsoleColor.Blue;
+                }
+                else if (currDesc[i] == '!')
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
                 }
 
                 if (spaceCount > 96 && currDesc[i] == ' ')
