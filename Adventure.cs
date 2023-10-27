@@ -285,8 +285,8 @@ namespace Adventure
         private void OutputDesc(int currentRow, int currentColumn)
         {
             PaddingCenter(currentRow, currentColumn);
-            //Write(Reset(ColorizeWords(currentDescription + " ", ANSICodes.Colors.Blue, ANSICodes.Colors.Yellow)), newLine: false);
-            char[] currDesc = currentDescription.ToArray();
+            Write(Reset(ColorizeWords(currentDescription + " ", ANSICodes.Colors.Blue, ANSICodes.Colors.Yellow)), newLine: false);
+            /*char[] currDesc = currentDescription.ToArray();
             int spaceCount = 0;
             for (int i = 0; i < currDesc.Length; i++)
             {
@@ -311,12 +311,13 @@ namespace Adventure
                     PaddingCenter(currentRow, currentColumn);
                     spaceCount = 0;
                 }
-                else
+                else 
                 {
                     Write(currDesc[i].ToString());
                 }
             }
             Console.ResetColor();
+            */
             PaddingCenter(currentRow, currentColumn);
             Write($"{new string(OutputValues.qualityOfLife.AfterDesc, MAX_LINE_WIDTH)}", newLine: true);
         }

@@ -6,6 +6,7 @@ using static Utils.ANSICodes.BgColors;
 using static Utils.ANSICodes.Colors;
 using static Utils.ANSICodes.Effects;
 using static Utils.ANSICodes.Positioning;
+using static Adventure.AssetsAndSettings;
 
 
 namespace Utils
@@ -32,9 +33,10 @@ namespace Utils
             return $"{text}{ANSICodes.Reset}";
         }
 
-        public static string AddColor(string text, string color, bool reset = true, bool oneLine = true) {
+        public static string AddColor(string text, string color, bool reset = true, bool oneLine = true)
+        {
             return $"{color}{text}{ANSICodes.Reset}";
-            
+
         }
         public static string Write(String text, bool newLine = false)
         {
@@ -45,6 +47,10 @@ namespace Utils
             }
             else
             {
+                if (text.Length > MAX_LINE_WIDTH)
+                {
+                    text.Append('\n');
+                }
                 Console.Write(text);
             }
             return text;
