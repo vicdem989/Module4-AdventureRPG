@@ -31,9 +31,9 @@ namespace COMMANDS
 
         public Commands()
         {
-            var type = Type.GetType("Test");
+        /*var type = Type.GetType("Test");
             var myMethod = type.GetMethod("Test");
-            Test externalType = new Test();
+            Test externalType = new Test();*/
             //LookUpLocation.Add("abyss", ABYSS);
 
             //GET DICTIONARY TO WORK

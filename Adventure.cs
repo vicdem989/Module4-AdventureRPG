@@ -102,8 +102,8 @@ namespace Adventure
         public void Update()
         {
 
-            Write(Commands.CheckCommand("tp abyss"));
-            return;
+            /*Write(Commands.CheckCommand("tp abyss"));
+            return;*/
             ///TODO: refactor this function. i.e. make it more readable. 
             if (command == String.Empty)
                 return;

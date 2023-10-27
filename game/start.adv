@@ -10,7 +10,12 @@
     DescriptionType = standard
     Status = floor
     Type = mainstory
-    //WHILE HAVE KEY, DEBUFF = POISON
+    //WHILE HAVE KEY, DEBUFF = POISON    DOESNT REMOVE DEBUFF IF ITEM DROPPED
+    //COULD ADD DEBUFFS TO ITEM(?)
+    //MAIN ITEMS HAVE SPECIFIC DEBUFF?
+    //IF INVENTORY has type == mainstory && debuff != ""
+        //set debuff until item not in inventory(?)
+            //only on main items?
     [Action.floor.take]
         Description => You pick up the key and put it in your pocket
         DescriptionType => new
