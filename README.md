@@ -41,6 +41,12 @@ Before you write any code, you should "sketch" the pseudo code and make a flowch
 - **More Locations**: Implement a minimum of two more locations for the player to travel to. **DONE ISH**
 - **Items**: Create at least one artifact that needs to be combined with another artifact to make a change (for instance, a key and lock).
 
+        if command.contains "key" "lock"
+            if player.has key && lock.status == locked
+                door unlocked
+            else
+                (assumed lock.status is unlocked)
+                door is already unlocked
         if you have item A and item B
             player: combine item a item B  
                 gets a better item
