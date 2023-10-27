@@ -7,6 +7,9 @@ using System.Reflection.Metadata.Ecma335;
 using System.Security;
 using System.Transactions;
 using OUTPUTVALUES;
+using System.Security.Cryptography.X509Certificates;
+using DEBUFF;
+using System.Reflection;
 
 namespace COMMANDS
 {
@@ -16,16 +19,58 @@ namespace COMMANDS
         static Location currentLocation;
         public const string ABYSS = "game/abyss.adv";
         public const string START = "game/start.adv";
-        public static List<string> ValidCommands = new List<string>() { "abyss", "start", "cleanse" };
+        public static List<List<string>> ValidCommands = new List<List<string>>() { DebuffCommands, TPCommands };
+        public static List<string> DebuffCommands = new List<string>() { "cleanse", "poision", "cold" };
+        public static List<string> TPCommands = new List<string>() { "abyss", "start" };
 
         public static Dictionary<string, string> LookUpLocation = new Dictionary<string, string>();
         public static string goToLocation = string.Empty;
 
+
+        // godModeCheat
+
         public Commands()
         {
-            LookUpLocation.Add("abyss", ABYSS);
+            var type = Type.GetType("godModeCheat");
+            var myMethod = type.GetMethod("MyMethod");
+            //LookUpLocation.Add("abyss", ABYSS);
 
             //GET DICTIONARY TO WORK
+        }
+
+        public static string CheckCommand(string command, string typeOfCOmmand = "")
+        {
+            ///Type of command
+            ///If its a debuff command, godmode, TP etc.
+            string findCommand = command.ToLower();
+            string type = typeOfCOmmand.ToLower();
+            for (int i = 0; i < ValidCommands.Count; i++)
+            {
+                if (findCommand.Contains("debuff"))
+                {
+                    for (int j = 0; j < DebuffCommands.Count; j++)
+                    {
+                        if (findCommand.Contains(DebuffCommands[j]))
+                        {
+
+                            return "FOUND IT!!!   " + command;
+
+                        }
+                    }
+                }
+                else if (findCommand.Contains("tp"))
+                {
+                    for (int j = 0; j < TPCommands.Count; j++)
+                    {
+                        if (findCommand.Contains(TPCommands[j]))
+                        {
+                            return "FOUND IT!!!   " + command;
+                        }
+                    }
+                }
+            }
+
+            return "not found :C";
         }
 
 
@@ -39,7 +84,7 @@ namespace COMMANDS
                     return location;
                 }
             }*/
-            foreach (string element in ValidCommands)
+            foreach (string element in TPCommands)
             {
                 if (location == element)
                 {

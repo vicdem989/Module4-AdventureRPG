@@ -16,7 +16,7 @@
         DescriptionType => new
         Status => pocket
         Player => Inventory.Add
-        Debuff => poison - 2 - 1
+        Debuff => poison - 0 - 1
     [Action.floor.lick]
         Description => You lick the key; it has the flavors of strawberries and shattered dreams
         Debuff => poison

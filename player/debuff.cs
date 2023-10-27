@@ -14,11 +14,11 @@ namespace DEBUFF
         private static int currentDebuffDamage = 0;
         public static int currentDebuffDuration = 0;
         public static bool playerDebuff = true;
+        public static bool permaDebuff = false;
         public static string preferredColor = String.Empty;
         public static int DebuffTick()
         {
-
-            if (currentDebuffDuration > 0)
+            if (currentDebuffDuration > 0 || permaDebuff)
             {
                 currentDebuffDuration--;
                 return currentDebuffDamage;
@@ -43,6 +43,8 @@ namespace DEBUFF
         }
         public static int ApplyDebuff(string debuffType, int duration, int damage)
         {
+            if(permaDebuff)
+                return 0;
             if (debuffType == "poison")
             {
                 return DebuffPoison(duration, damage);
@@ -78,8 +80,14 @@ namespace DEBUFF
         {
             playerDebuff = true;
             currentPlayerDebuff = currentDebuff;
-            currentDebuffDuration = debuffDuration;
-            currentDebuffDamage = debuffDamage;
+            
+            if(debuffDuration == 0) {
+                permaDebuff = true;
+            
+            }else {
+                currentDebuffDuration = debuffDuration;
+            }
+                currentDebuffDamage = debuffDamage;
         }
 
     }

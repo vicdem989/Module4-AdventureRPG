@@ -102,6 +102,8 @@ namespace Adventure
         public void Update()
         {
 
+            Write(Commands.CheckCommand("tp abyss"));
+            return;
             ///TODO: refactor this function. i.e. make it more readable. 
             if (command == String.Empty)
                 return;
@@ -174,9 +176,10 @@ namespace Adventure
             command = String.Empty;
 
             // This is not a good solution, rewrite for clearity.
-            if (hero.hp < 0)
+            if (hero.hp <= 0)
             {
-                currentDescription += OutputValues.ResponseDed(); //TODO: Remove magick string, les statick feadback?
+                currentDescription = OutputValues.ResponseDed(); //TODO: Remove magick string, les statick feadback?
+                Environment.Exit(0);
             }
         }
 
@@ -319,6 +322,7 @@ namespace Adventure
 
                 PaddingCenter(currentRow, currentColumn);
                 Write("HP " + hero.hp + ": ");
+
                 for (int i = 0; i < hero.hp; i++)
                 {
                     if (hero.hp < 20)
