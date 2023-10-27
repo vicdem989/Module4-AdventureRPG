@@ -31,11 +31,16 @@ namespace COMMANDS
 
         public Commands()
         {
-            var type = Type.GetType("godModeCheat");
-            var myMethod = type.GetMethod("MyMethod");
+            var type = Type.GetType("Test");
+            var myMethod = type.GetMethod("Test");
+            Test externalType = new Test();
             //LookUpLocation.Add("abyss", ABYSS);
 
             //GET DICTIONARY TO WORK
+        }
+
+        public void Test() {
+            Environment.Exit(0);
         }
 
         public static string CheckCommand(string command, string typeOfCOmmand = "")
