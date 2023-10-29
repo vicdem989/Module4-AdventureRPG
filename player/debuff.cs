@@ -18,7 +18,9 @@ namespace DEBUFF
         public static string preferredColor = String.Empty;
         public static int DebuffTick()
         {
-            if (currentDebuffDuration > 0 || permaDebuff)
+            if(permaDebuff) {
+                return currentDebuffDamage;
+            }else if(currentDebuffDuration > 0 && permaDebuff == false)
             {
                 currentDebuffDuration--;
                 return currentDebuffDamage;
@@ -34,7 +36,7 @@ namespace DEBUFF
             {
                 if (debuffValue == element)
                 {
-                    if(debuffValue == "cleanse") 
+                    if (debuffValue == "cleanse")
                         SetDebuffAction("No debuff... yet...", 0, 0);
                     return true;
                 }
@@ -43,7 +45,7 @@ namespace DEBUFF
         }
         public static int ApplyDebuff(string debuffType, int duration, int damage)
         {
-            if(permaDebuff)
+            if (permaDebuff)
                 return 0;
             if (debuffType == "poison")
             {
@@ -80,14 +82,25 @@ namespace DEBUFF
         {
             playerDebuff = true;
             currentPlayerDebuff = currentDebuff;
-            
-            if(debuffDuration == 0) {
+
+            if (debuffDuration == 0)
+            {
                 permaDebuff = true;
-            
-            }else {
+            }
+            else if (debuffDuration < 0)
+            {
+
+                permaDebuff = false;
+                playerDebuff = false;
+                currentDebuffDuration = 0;
+                currentDebuffDamage = 0;
+                currentPlayerDebuff = "";
+            }
+            else
+            {
                 currentDebuffDuration = debuffDuration;
             }
-                currentDebuffDamage = debuffDamage;
+            currentDebuffDamage = debuffDamage;
         }
 
     }

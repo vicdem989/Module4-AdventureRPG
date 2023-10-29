@@ -24,12 +24,12 @@
         Debuff => poison - 0 - 1
     [Action.floor.lick]
         Description => You lick the key; it has the flavors of strawberries and shattered dreams
-        Debuff => poison
     [Action.pocket.throw]
         Description => You throw the key away
         Status => floor
         Player => Inventory.Remove
         Location => Inventory.add
+        Debuff => poison - -1 - 1
 
 [window]
     Id = A broken window
