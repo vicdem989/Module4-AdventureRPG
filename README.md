@@ -37,9 +37,9 @@ Before you write any code, you should "sketch" the pseudo code and make a flowch
 ### Module Requirements
 
 - **TODOS**: Do all the things that are tagged with `///TODO:` in the code.
-- **Inventory**: Implement an inventory for the player, and the functionality for adding and removing items. IS INFVENTORY
+## DONE **Inventory**: Implement an inventory for the player, and the functionality for adding and removing items. IS INFVENTORY
 - **More Locations**: Implement a minimum of two more locations for the player to travel to. **DONE ISH**
-- **Items**: Create at least one artifact that needs to be combined with another artifact to make a change (for instance, a key and lock).
+## DONE **Items**: Create at least one artifact that needs to be combined with another artifact to make a change (for instance, a key and lock).
 
         if command.contains "key" "lock"
             if player.has key && lock.status == locked
@@ -63,8 +63,8 @@ Before you write any code, you should "sketch" the pseudo code and make a flowch
 
 ### Challenge Requirements (Higher Grades)
 
-- **Cheat Codes**: Implement a minimum of two cheat codes (teleport is a good idea). **DONE**
-- **Duration Effects**: Implement a system that enables recurring effects (example: poison debuff, scared, prone, blurry vision, etc.). **DONE**
+## DONE **Cheat Codes**: Implement a minimum of two cheat codes (teleport is a good idea). **DONE**
+## DONE**Duration Effects**: Implement a system that enables recurring effects (example: poison debuff, scared, prone, blurry vision, etc.). **DONE**
 - **Update Location Description**: When an item (e.g., the key in the start room) is added to the player's inventory, it should not be part of the room description anymore.
 
     Each item has a specific description
