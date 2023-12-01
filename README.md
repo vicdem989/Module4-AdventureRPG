@@ -1,96 +1,16 @@
-Welcome to "Adventure," your opportunity to bring your imagination to life in a text-based role-playing game (RPG)! Reminiscent of the classic game Zork, Adventure offers an open platform where you can create your own narratives, environments, characters, and challenges. However, despite the seemingly limitless possibilities, the foundational concepts of programming still form the backbone of this project.
+A lot of the //TODOS are undone, simply becasuse I focused way more on the other requirements. I simply forgot to do all of them. Here I am probably losing a lot, which is something I wish I could improve on the other modules.
 
-## Core Programming Concepts in "Adventure"
+Finishing the requirements for this module was super fun. Adding the cheat codes, the poison tick rate and everything. Adding so that different mobs has different types of debuff. However, I do wish I learned to use interfaces properly. This would make the debuff code way cooler and simpler to use. 
 
-### Variables
+After understanding the communication between .adv file and adventure.cs file. The module became much more interesting. However, that took a long while to crack.
 
-In "Adventure," variables play a vital role in defining various game elements such as player attributes, game states, item descriptions, locations, and more. The manipulation and interaction of these variables drive the narrative and gameplay.
+I wanted to do so much with this module, but being held back by unfinished requirements and short time to complete was unfortunate. I get now why module 9 was supposed to be a grand module, a module I would have enjoyed and learned a lot from doing. 
 
-### Conditionals
+Figuring out how the .adv worked 100% was something I did not manage to do. Therefore, updating location description when items are removed are something I never manged to figure out. I assume you could make an object of the location and assign some values such as description etc. Then display those descriptions as the player changes the room. 
 
-Conditionals breathe life into the game, allowing for different outcomes and paths based on player actions. From simple decisions like choosing a path to complex actions like solving puzzles, conditionals make these narrative twists possible.
+Cheat codes was also super fun to add. While simple, adding cheat codes such as TP and increase in HP was fun to create. 
 
-### Arrays
 
-Arrays can hold collections of game elements such as inventory items or locations. This can provide a more dynamic, immersive experience as players navigate through the game world.
-
-### Loops
-
-Loops keep the game running, enabling the player to continuously interact with the game world until they reach a specified end condition.
-
-### Functions
-
-Functions streamline the game's complexity by breaking down tasks into manageable, reusable pieces. Functions can handle player actions, update game states, display narrative text, and much more.
-
-## Scope and Complexity
-
-"Adventure" is a more complex project, not in terms of new concepts, but in terms of scope. It's easy to get lost in the endless possibilities and end up with scope creep—a situation where the game's features continue to expand beyond the original plan. It's a common challenge in game development, but it's also an opportunity for you to learn how to manage your ideas, prioritize features, and define a clear, achievable scope for your project.
-
-> **Note**: While the possibilities for your game are only limited by your imagination, the importance of good, clean code remains. As your projects get more complex, maintainable and understandable code becomes even more crucial.
-
-## Project Requirements
-
-You must work from the code in [GitHub Repository](https://github.com/CodeCraftCurriculum-I/module_4_adventure).
-
-Before you write any code, you should "sketch" the pseudo code and make a flowchart for how you plan to do the following alterations to the game.
-
-### Module Requirements
-
-- **TODOS**: Do all the things that are tagged with `///TODO:` in the code.
-## DONE **Inventory**: Implement an inventory for the player, and the functionality for adding and removing items. IS INFVENTORY
-- **More Locations**: Implement a minimum of two more locations for the player to travel to. **DONE ISH**
-## DONE **Items**: Create at least one artifact that needs to be combined with another artifact to make a change (for instance, a key and lock).
-
-        if command.contains "key" "lock"
-            if player.has key && lock.status == locked
-                door unlocked
-            else
-                (assumed lock.status is unlocked)
-                door is already unlocked
-        if you have item A and item B
-            player: combine item a item B  
-                gets a better item
-        some rooms can have puzzles
-        e.g. start room
-            door locked - unlock if clean key
-            students have key
-                if students tickle
-                    students drop key
-            sink to clean key
-                sink cleans key
-            if key condition = clean & in hero.inventory
-                door can be unlocked
-
-### Challenge Requirements (Higher Grades)
-
-## DONE **Cheat Codes**: Implement a minimum of two cheat codes (teleport is a good idea). **DONE**
-## DONE**Duration Effects**: Implement a system that enables recurring effects (example: poison debuff, scared, prone, blurry vision, etc.). **DONE**
-- **Update Location Description**: When an item (e.g., the key in the start room) is added to the player's inventory, it should not be part of the room description anymore.
-
-    Each item has a specific description
-        At the beginning of the locaiton
-            Check for values
-                have a separate file for description strings.   
-                If key, window, door present
-                    Print key, window, door custom description
-                else 
-                    Only print whats present
-            if all values are present, print default
-- **Keep State**: When a player comes back to a location (if you allow the player to revisit), the location should have the changes that the player created previously still be there.
-
-### HARD Requirements
-
-- Implement save game and restore functionality.
-
----
-
-## Learning Objectives
-
-Throughout this module, you should aim to understand how different parts of a program interact, how to troubleshoot effectively, and how to write clean, effective code.
-
-### Assessment
-
-Assessment for this project will be based not just on feature completion, but also on your attention to detail, the cleanliness and readability of your code, and the thoughtfulness of your README file reflections.
 
 ### File Structure
 
